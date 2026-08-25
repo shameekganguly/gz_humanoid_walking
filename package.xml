@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>gz_humanoid_walking</name>
+  <version>1.0.0</version>
+  <description>Humanoid Walking Demo in Gazebo with MuJoCo Physics Backend</description>
+  <maintainer email="info@openrobotics.org">Open Robotics</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>cmake</buildtool_depend>
+  <depend>gz-sim8</depend>
+  <depend>gz-gui8</depend>
+  <depend>gz-transport13</depend>
+  <depend>gz-msgs10</depend>
+  <depend>gz-plugin2</depend>
+  <depend>gz-physics8</depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

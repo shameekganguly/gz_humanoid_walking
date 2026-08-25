@@ -1,0 +1,4751 @@
+<sdf version='1.12'>
+  <world name='default'>
+    <gravity>0 0 -9.8100000000000005</gravity>
+    <magnetic_field>0 -0.5 0</magnetic_field>
+    <wind>
+      <linear_velocity>0 0 0</linear_velocity>
+    </wind>
+    <physics default='false' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <max_contacts>20</max_contacts>
+    </physics>
+    <model name='static'>
+      <static>true</static>
+      <self_collide>false</self_collide>
+      <allow_auto_disable>true</allow_auto_disable>
+      <enable_wind>false</enable_wind>
+      <pose>0 0 0 0 0 0</pose>
+      <link name='link_0'>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <light name='light_0' type='spot'>
+          <pose>0 0 2 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <intensity>1</intensity>
+          <direction>0 0 -1</direction>
+          <diffuse>0.200000003 0.200000003 0.200000003 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <attenuation>
+            <range>10</range>
+            <linear>0</linear>
+            <constant>1</constant>
+            <quadratic>0</quadratic>
+          </attenuation>
+          <spot>
+            <inner_angle>0</inner_angle>
+            <outer_angle>1.5707963267948966</outer_angle>
+            <falloff>2</falloff>
+          </spot>
+        </light>
+        <light name='light_1' type='spot'>
+          <pose>0 0 4 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <intensity>1</intensity>
+          <direction>0 0 -1</direction>
+          <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+          <specular>0.300000012 0.300000012 0.300000012 1</specular>
+          <attenuation>
+            <range>10</range>
+            <linear>0</linear>
+            <constant>1</constant>
+            <quadratic>0</quadratic>
+          </attenuation>
+          <spot>
+            <inner_angle>0</inner_angle>
+            <outer_angle>1.5707963267948966</outer_angle>
+            <falloff>2</falloff>
+          </spot>
+        </light>
+      </link>
+    </model>
+    <model name='model_for_PELVIS_S'>
+      <static>false</static>
+      <self_collide>false</self_collide>
+      <allow_auto_disable>true</allow_auto_disable>
+      <enable_wind>false</enable_wind>
+      <pose>0 0 0 0 0 0</pose>
+      <link name='PELVIS_S'>
+        <pose>0 0 1.3999999999999999 0 0 0</pose>
+        <inertial>
+          <pose>-0.01 0 0.034000000000000002 0 0 0</pose>
+          <mass>10</mass>
+          <inertia>
+            <ixx>0.089583333333333334</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.089583333333333334</iyy>
+            <iyz>0</iyz>
+            <izz>0.11249999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/PELVIS_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='Accelerometer_accelerometer' type='imu'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <imu>
+            <orientation_reference_frame>
+              <localization>CUSTOM</localization>
+              <custom_rpy>0 0 0</custom_rpy>
+              <grav_dir_x>1 0 0</grav_dir_x>
+            </orientation_reference_frame>
+            <angular_velocity>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </linear_acceleration>
+            <enable_orientation>true</enable_orientation>
+          </imu>
+        </sensor>
+        <sensor name='Accelerometer_gyro' type='imu'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <imu>
+            <orientation_reference_frame>
+              <localization>CUSTOM</localization>
+              <custom_rpy>0 0 0</custom_rpy>
+              <grav_dir_x>1 0 0</grav_dir_x>
+            </orientation_reference_frame>
+            <angular_velocity>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </linear_acceleration>
+            <enable_orientation>true</enable_orientation>
+          </imu>
+        </sensor>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/PELVIS_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map01_siri.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_HIP_P_S'>
+        <pose relative_to='PELVIS_S'>0 -0.096000000000000002 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='R_HIP_R_S'>
+        <pose relative_to='R_HIP_P_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_HIP_R_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_HIP_R_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map28_migimata.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_HIP_Y_S'>
+        <pose relative_to='R_HIP_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0.01 0 -0.22 0 0 1.5707963267948963</pose>
+          <mass>3</mass>
+          <inertia>
+            <ixx>0.034525</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.031925000000000002</iyy>
+            <iyz>0</iyz>
+            <izz>0.0086499999999999997</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_HIP_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_HIP_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map29_migidaitai.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_KNEE_S'>
+        <pose relative_to='R_HIP_Y_S'>-0.02 0 -0.38900000000000001 0 0 0</pose>
+        <inertial>
+          <pose>0.040000000000000001 0 -0.16 0 0 1.5707963267948963</pose>
+          <mass>3</mass>
+          <inertia>
+            <ixx>0.034525</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.031925000000000002</iyy>
+            <iyz>0</iyz>
+            <izz>0.0086499999999999997</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_KNEE_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_KNEE_S_1.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map30_migisune.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name='visual_1'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_KNEE_S_2.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map31_migiashikubi.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_ANKLE_R_S'>
+        <pose relative_to='R_KNEE_S'>0.040000000000000001 0 -0.35699999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00064000000000000005</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00064000000000000005</iyy>
+            <iyz>0</iyz>
+            <izz>0.00064000000000000005</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='R_ANKLE_P_S'>
+        <pose relative_to='R_ANKLE_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0.029999999999999999 0 -0.070000000000000007 -3.1415926535897931 -1.5707963267948966 0</pose>
+          <mass>1.5</mass>
+          <inertia>
+            <ixx>0.0062166699999999997</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0056166699999999998</iyy>
+            <iyz>0</iyz>
+            <izz>0.0014166700000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ANKLE_P_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='RightFootForceSensor_fsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <sensor name='RightFootForceSensor_tsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ANKLE_P_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map32_migiashi.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_HIP_P_S'>
+        <pose relative_to='PELVIS_S'>0 0.096000000000000002 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='L_HIP_R_S'>
+        <pose relative_to='L_HIP_P_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_HIP_R_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_HIP_R_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map28_migimata.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_HIP_Y_S'>
+        <pose relative_to='L_HIP_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0.01 0 -0.22 0 0 1.5707963267948963</pose>
+          <mass>3</mass>
+          <inertia>
+            <ixx>0.034525</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.031925000000000002</iyy>
+            <iyz>0</iyz>
+            <izz>0.0086499999999999997</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_HIP_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_HIP_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map29_migidaitai.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_KNEE_S'>
+        <pose relative_to='L_HIP_Y_S'>-0.02 0 -0.38900000000000001 0 0 0</pose>
+        <inertial>
+          <pose>0.040000000000000001 0 -0.16 0 0 1.5707963267948963</pose>
+          <mass>3</mass>
+          <inertia>
+            <ixx>0.034525</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.031925000000000002</iyy>
+            <iyz>0</iyz>
+            <izz>0.0086499999999999997</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_KNEE_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_KNEE_S_1.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map30_migisune.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name='visual_1'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_KNEE_S_2.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map31_migiashikubi.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_ANKLE_R_S'>
+        <pose relative_to='L_KNEE_S'>0.040000000000000001 0 -0.35699999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00064000000000000005</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00064000000000000005</iyy>
+            <iyz>0</iyz>
+            <izz>0.00064000000000000005</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='L_ANKLE_P_S'>
+        <pose relative_to='L_ANKLE_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0.029999999999999999 0 -0.070000000000000007 -3.1415926535897931 -1.5707963267948966 0</pose>
+          <mass>1.5</mass>
+          <inertia>
+            <ixx>0.0062166699999999997</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0056166699999999998</iyy>
+            <iyz>0</iyz>
+            <izz>0.0014166700000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ANKLE_P_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='LeftFootForceSensor_fsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <sensor name='LeftFootForceSensor_tsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ANKLE_P_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map32_migiashi.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='WAIST_Y_S'>
+        <pose relative_to='PELVIS_S'>0 0 0.192 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.070000000000000007 1.5707963267948963 -1.5707963267948966 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0032000000000000002</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0017333299999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0017333299999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/WAIST_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/WAIST_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='WAIST_P_S'>
+        <pose relative_to='WAIST_Y_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0024499999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0024250000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.0024250000000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='WAIST_R_S'>
+        <pose relative_to='WAIST_P_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0.02 0 0.23999999999999999 1.5707963267948963 0 0</pose>
+          <mass>10</mass>
+          <inertia>
+            <ixx>0.157083</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.13666700000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.10108300000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/WAIST_R_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/WAIST_R_S_F.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map03_douF.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name='visual_1'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/WAIST_R_S_R.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map03_douR.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='NECK_Y_S'>
+        <pose relative_to='WAIST_R_S'>-0.0030000000000000001 0 0.45300000000000001 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.050000000000000003 0 0 0</pose>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00072916699999999997</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00072916699999999997</iyy>
+            <iyz>0</iyz>
+            <izz>0.00062500000000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/NECK_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/NECK_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='NECK_R_S'>
+        <pose relative_to='NECK_Y_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00050000000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00050000000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.00050000000000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='NECK_P_S'>
+        <pose relative_to='NECK_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0.01 0 0.11 0 0 0</pose>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.0096799999999999994</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0096799999999999994</iyy>
+            <iyz>0</iyz>
+            <izz>0.0096799999999999994</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/NECK_P_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/NECK_P_S_F.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map05_atamaF.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name='visual_1'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/NECK_P_S_R.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map05_atamaR.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_SHOULDER_P_S'>
+        <pose relative_to='WAIST_R_S'>0 -0.23999999999999999 0.33000000000000002 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_SHOULDER_P_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_SHOULDER_P_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map06_migikata.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_SHOULDER_R_S'>
+        <pose relative_to='R_SHOULDER_P_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='R_SHOULDER_Y_S'>
+        <pose relative_to='R_SHOULDER_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>-0.01 0 -0.19 0 0 1.5707963267948963</pose>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.0146</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.013650000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.0063499999999999997</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_SHOULDER_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_SHOULDER_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map07_migijowan.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_ELBOW_P_S'>
+        <pose relative_to='R_SHOULDER_Y_S'>0.0040000000000000001 0 -0.30499999999999999 0 0 0</pose>
+        <inertial>
+          <pose>-0.02 0 -0.10000000000000001 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.010675</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.010675</iyy>
+            <iyz>0</iyz>
+            <izz>0.0027000000000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ELBOW_P_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ELBOW_P_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map08_migikawan.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_ELBOW_Y_S'>
+        <pose relative_to='R_ELBOW_P_S'>-0.0040000000000000001 0 -0.23899999999999999 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00064000000000000005</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00064000000000000005</iyy>
+            <iyz>0</iyz>
+            <izz>0.00064000000000000005</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ELBOW_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ELBOW_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map09_migitekubi.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_WRIST_R_S'>
+        <pose relative_to='R_ELBOW_Y_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00032000000000000003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00032000000000000003</iyy>
+            <iyz>0</iyz>
+            <izz>0.00032000000000000003</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='R_WRIST_Y_S'>
+        <pose relative_to='R_WRIST_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0.01 -0.059999999999999998 0 0 1.5707963267948963</pose>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00076250000000000005</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00046250000000000002</iyy>
+            <iyz>0</iyz>
+            <izz>0.00046250000000000002</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_WRIST_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='RightHandForceSensor_fsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <sensor name='RightHandForceSensor_tsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_WRIST_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map10_migitenohira.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_UTHUMB_S'>
+        <pose relative_to='R_WRIST_Y_S'>0 0.033000000000000002 -0.084000000000000005 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_UTHUMB_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_UTHUMB_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='R_LTHUMB_S'>
+        <pose relative_to='R_UTHUMB_S'>0 0 -0.044999999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_LTHUMB_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_LTHUMB_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map12_migiisshisaki.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_UINDEX_S'>
+        <pose relative_to='R_WRIST_Y_S'>0.025000000000000001 -0.016 -0.084000000000000005 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_UINDEX_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_UINDEX_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='R_LINDEX_S'>
+        <pose relative_to='R_UINDEX_S'>0 0 -0.044999999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_LINDEX_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_LINDEX_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map14_miginishisaki.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='R_ULITTLE_S'>
+        <pose relative_to='R_WRIST_Y_S'>-0.025000000000000001 -0.016 -0.084000000000000005 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ULITTLE_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_ULITTLE_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='R_LLITTLE_S'>
+        <pose relative_to='R_ULITTLE_S'>0 0 -0.044999999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_LLITTLE_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/R_LLITTLE_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map14_miginishisaki.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_SHOULDER_P_S'>
+        <pose relative_to='WAIST_R_S'>0 0.23999999999999999 0.33000000000000002 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_SHOULDER_P_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_SHOULDER_P_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map06_migikata.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_SHOULDER_R_S'>
+        <pose relative_to='L_SHOULDER_P_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.0019599999999999999</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0019599999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>0.0019599999999999999</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='L_SHOULDER_Y_S'>
+        <pose relative_to='L_SHOULDER_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>-0.01 0 -0.19 0 0 1.5707963267948963</pose>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.0146</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.013650000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.0063499999999999997</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_SHOULDER_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_SHOULDER_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map07_migijowan.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_ELBOW_P_S'>
+        <pose relative_to='L_SHOULDER_Y_S'>0.0040000000000000001 0 -0.30499999999999999 0 0 0</pose>
+        <inertial>
+          <pose>-0.02 0 -0.10000000000000001 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.010675</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.010675</iyy>
+            <iyz>0</iyz>
+            <izz>0.0027000000000000001</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ELBOW_P_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ELBOW_P_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map08_migikawan.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_ELBOW_Y_S'>
+        <pose relative_to='L_ELBOW_P_S'>-0.0040000000000000001 0 -0.23899999999999999 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00064000000000000005</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00064000000000000005</iyy>
+            <iyz>0</iyz>
+            <izz>0.00064000000000000005</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ELBOW_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ELBOW_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map09_migitekubi.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_WRIST_R_S'>
+        <pose relative_to='L_ELBOW_Y_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00032000000000000003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00032000000000000003</iyy>
+            <iyz>0</iyz>
+            <izz>0.00032000000000000003</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+      </link>
+      <link name='L_WRIST_Y_S'>
+        <pose relative_to='L_WRIST_R_S'>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 -0.01 -0.059999999999999998 0 0 1.5707963267948963</pose>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00076250000000000005</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00046250000000000002</iyy>
+            <iyz>0</iyz>
+            <izz>0.00046250000000000002</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_WRIST_Y_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='LeftHandForceSensor_fsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <sensor name='LeftHandForceSensor_tsensor' type='force_torque'>
+          <pose>0 0 0 0 0 0</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>100</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <force_torque>
+            <frame>child</frame>
+            <measure_direction>child_to_parent</measure_direction>
+            <force>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </force>
+            <torque>
+              <x>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='none'>
+                  <mean>0</mean>
+                  <stddev>0</stddev>
+                  <bias_mean>0</bias_mean>
+                  <bias_stddev>0</bias_stddev>
+                  <dynamic_bias_stddev>0</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>0</dynamic_bias_correlation_time>
+                  <precision>0</precision>
+                </noise>
+              </z>
+            </torque>
+          </force_torque>
+        </sensor>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_WRIST_Y_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map10_migitenohira.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_UTHUMB_S'>
+        <pose relative_to='L_WRIST_Y_S'>0 -0.033000000000000002 -0.084000000000000005 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_UTHUMB_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_UTHUMB_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='L_LTHUMB_S'>
+        <pose relative_to='L_UTHUMB_S'>0 0 -0.044999999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_LTHUMB_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_LTHUMB_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map12_migiisshisaki.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_UINDEX_S'>
+        <pose relative_to='L_WRIST_Y_S'>0.025000000000000001 0.016 -0.084000000000000005 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_UINDEX_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_UINDEX_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='L_LINDEX_S'>
+        <pose relative_to='L_UINDEX_S'>0 0 -0.044999999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_LINDEX_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_LINDEX_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map14_miginishisaki.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <link name='L_ULITTLE_S'>
+        <pose relative_to='L_WRIST_Y_S'>-0.025000000000000001 0.016 -0.084000000000000005 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ULITTLE_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_ULITTLE_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+          </material>
+        </visual>
+      </link>
+      <link name='L_LLITTLE_S'>
+        <pose relative_to='L_ULITTLE_S'>0 0 -0.044999999999999998 0 0 0</pose>
+        <inertial>
+          <pose>0 0 -0.014999999999999999 0 0 0</pose>
+          <mass>0.20000000000000001</mass>
+          <inertia>
+            <ixx>6.1666699999999997e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.1666699999999997e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.66667e-05</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <collision name='collision_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_LLITTLE_S.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>255</collide_bitmask>
+            </contact>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+                <fdir1>0 0 0</fdir1>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual_0'>
+          <pose>0 0 0 0 0 1.5708005694372709</pose>
+          <geometry>
+            <mesh>
+              <uri>meshes/L_LLITTLE_S.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <cast_shadows>true</cast_shadows>
+          <laser_retro>0</laser_retro>
+          <transparency>0</transparency>
+          <visibility_flags>4294967295</visibility_flags>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+            <render_order>0</render_order>
+            <lighting>true</lighting>
+            <double_sided>false</double_sided>
+            <shader type='pixel'/>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Map14_miginishisaki.png</albedo_map>
+                <roughness_map></roughness_map>
+                <roughness>0.5</roughness>
+                <metalness_map></metalness_map>
+                <metalness>0.5</metalness>
+                <ambient_occlusion_map></ambient_occlusion_map>
+                <normal_map type='tangent'></normal_map>
+                <emissive_map></emissive_map>
+                <light_map uv_set='0'></light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+      <joint name='joint_R_HIP_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>PELVIS_S</parent>
+        <child>R_HIP_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-2.0943999999999998</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_HIP_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_HIP_P_S</parent>
+        <child>R_HIP_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539800000000004</lower>
+            <upper>0.34906599999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_HIP_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_HIP_R_S</parent>
+        <child>R_HIP_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-0.52359900000000004</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_KNEE' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_HIP_Y_S</parent>
+        <child>R_KNEE_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>2.6179899999999998</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_ANKLE_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_KNEE_S</parent>
+        <child>R_ANKLE_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.61086499999999999</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_ANKLE_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_ANKLE_R_S</parent>
+        <child>R_ANKLE_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.48353</lower>
+            <upper>0.95993099999999998</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_HIP_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>PELVIS_S</parent>
+        <child>L_HIP_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-2.0943999999999998</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_HIP_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_HIP_P_S</parent>
+        <child>L_HIP_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.34906599999999999</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_HIP_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_HIP_R_S</parent>
+        <child>L_HIP_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-0.78539800000000004</lower>
+            <upper>0.52359900000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_KNEE' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_HIP_Y_S</parent>
+        <child>L_KNEE_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>2.6179899999999998</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_ANKLE_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_KNEE_S</parent>
+        <child>L_ANKLE_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539800000000004</lower>
+            <upper>0.61086499999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_ANKLE_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_ANKLE_R_S</parent>
+        <child>L_ANKLE_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.48353</lower>
+            <upper>0.95993099999999998</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_WAIST_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>PELVIS_S</parent>
+        <child>WAIST_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-0.78539800000000004</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_WAIST_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>WAIST_Y_S</parent>
+        <child>WAIST_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.52359900000000004</lower>
+            <upper>1.0471999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_WAIST_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>WAIST_P_S</parent>
+        <child>WAIST_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.87266500000000002</lower>
+            <upper>0.87266500000000002</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_NECK_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>WAIST_R_S</parent>
+        <child>NECK_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.22173</lower>
+            <upper>1.22173</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_NECK_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>NECK_Y_S</parent>
+        <child>NECK_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.87266500000000002</lower>
+            <upper>0.87266500000000002</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_NECK_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>NECK_R_S</parent>
+        <child>NECK_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.87266500000000002</lower>
+            <upper>1.0471999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_SHOULDER_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>WAIST_R_S</parent>
+        <child>R_SHOULDER_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-3.1415899999999999</lower>
+            <upper>1.0471999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_SHOULDER_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_SHOULDER_P_S</parent>
+        <child>R_SHOULDER_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.74533</lower>
+            <upper>0.17453299999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_SHOULDER_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_SHOULDER_R_S</parent>
+        <child>R_SHOULDER_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_ELBOW_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_SHOULDER_Y_S</parent>
+        <child>R_ELBOW_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-2.5307300000000001</lower>
+            <upper>0</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_ELBOW_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_ELBOW_P_S</parent>
+        <child>R_ELBOW_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.9198599999999999</lower>
+            <upper>1.9198599999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_WRIST_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_ELBOW_Y_S</parent>
+        <child>R_WRIST_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.9198599999999999</lower>
+            <upper>1.9198599999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_WRIST_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_WRIST_R_S</parent>
+        <child>R_WRIST_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-2.6179899999999998</lower>
+            <upper>2.6179899999999998</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_UTHUMB' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_WRIST_Y_S</parent>
+        <child>R_UTHUMB_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539800000000004</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_LTHUMB' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_UTHUMB_S</parent>
+        <child>R_LTHUMB_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-2.3561999999999999</lower>
+            <upper>2.3561999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_UINDEX' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_WRIST_Y_S</parent>
+        <child>R_UINDEX_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539999999999999</lower>
+            <upper>0.78539999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_LINDEX' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_UINDEX_S</parent>
+        <child>R_LINDEX_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-2.3561999999999999</lower>
+            <upper>2.3561999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_ULITTLE' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_WRIST_Y_S</parent>
+        <child>R_ULITTLE_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539999999999999</lower>
+            <upper>0.78539999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_R_LLITTLE' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>R_ULITTLE_S</parent>
+        <child>R_LLITTLE_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-2.3561999999999999</lower>
+            <upper>2.3561999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_SHOULDER_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>WAIST_R_S</parent>
+        <child>L_SHOULDER_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-3.1415899999999999</lower>
+            <upper>1.0471999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_SHOULDER_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_SHOULDER_P_S</parent>
+        <child>L_SHOULDER_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.17453299999999999</lower>
+            <upper>1.74533</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_SHOULDER_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_SHOULDER_R_S</parent>
+        <child>L_SHOULDER_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_ELBOW_P' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_SHOULDER_Y_S</parent>
+        <child>L_ELBOW_P_S</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-2.5307300000000001</lower>
+            <upper>0</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_ELBOW_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_ELBOW_P_S</parent>
+        <child>L_ELBOW_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.9198599999999999</lower>
+            <upper>1.9198599999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_WRIST_R' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_ELBOW_Y_S</parent>
+        <child>L_WRIST_R_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.9198599999999999</lower>
+            <upper>1.9198599999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_WRIST_Y' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_WRIST_R_S</parent>
+        <child>L_WRIST_Y_S</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-2.6179899999999998</lower>
+            <upper>2.6179899999999998</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_UTHUMB' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_WRIST_Y_S</parent>
+        <child>L_UTHUMB_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539800000000004</lower>
+            <upper>0.78539800000000004</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_LTHUMB' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_UTHUMB_S</parent>
+        <child>L_LTHUMB_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-2.3561999999999999</lower>
+            <upper>2.3561999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_UINDEX' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_WRIST_Y_S</parent>
+        <child>L_UINDEX_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539999999999999</lower>
+            <upper>0.78539999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_LINDEX' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_UINDEX_S</parent>
+        <child>L_LINDEX_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-2.3561999999999999</lower>
+            <upper>2.3561999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_ULITTLE' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_WRIST_Y_S</parent>
+        <child>L_ULITTLE_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.78539999999999999</lower>
+            <upper>0.78539999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='joint_L_LLITTLE' type='revolute'>
+        <pose>0 0 0 0 0 0</pose>
+        <parent>L_ULITTLE_S</parent>
+        <child>L_LLITTLE_S</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-2.3561999999999999</lower>
+            <upper>2.3561999999999999</upper>
+            <effort>inf</effort>
+            <velocity>inf</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0.20000000000000001</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+      </joint>
+    </model>
+    <atmosphere type='adiabatic'>
+      <temperature>288.14999999999998</temperature>
+      <pressure>101325</pressure>
+      <temperature_gradient>-0.0064999999999999997</temperature_gradient>
+    </atmosphere>
+    <scene>
+      <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
+      <background>0.699999988 0.699999988 0.699999988 1</background>
+      <grid>true</grid>
+      <origin_visual>true</origin_visual>
+      <shadows>true</shadows>
+    </scene>
+  </world>
+</sdf>
