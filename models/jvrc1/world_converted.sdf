@@ -1,3 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Intermediate generated file produced during conversion from the original MJCF model at
+  https://github.com/isri-aist/jvrc_mj_description.git using gz-mujoco MJCF -> SDFormat converter.
+  The final styled and configured model is located in model.sdf.
+-->
 <sdf version='1.12'>
   <world name='default'>
     <gravity>0 0 -9.8100000000000005</gravity>

@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<sdf version="1.8">
+<!--
+  This model was converted from the original model at https://github.com/isri-aist/jvrc_mj_description.git
+  using gz-mujoco MJCF -> SDFormat converter with style customizations.
+  NOTE: The upper revolute joints have been replaced by fixed joints for the purpose of this demo simulation.
+    See world_converted.sdf for embedded robot model with revolute joints.
+-->
+<sdf version="1.12">
   <model name="jvrc1">
     <static>false</static>
     <self_collide>false</self_collide>
@@ -520,8 +526,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
+              <mu>0.8</mu>
+              <mu2>0.8</mu2>
               <slip1>0</slip1>
               <slip2>0</slip2>
               <fdir1>0 0 0</fdir1>
@@ -996,8 +1002,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
+              <mu>0.8</mu>
+              <mu2>0.8</mu2>
               <slip1>0</slip1>
               <slip2>0</slip2>
               <fdir1>0 0 0</fdir1>
@@ -3594,709 +3600,165 @@
         </dynamics>
       </axis>
     </joint>
-    <joint name="joint_WAIST_Y" type="revolute">
+    <joint name="joint_WAIST_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>PELVIS_S</parent>
       <child>WAIST_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-0.78539800000000004</lower>
-          <upper>0.78539800000000004</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_WAIST_P" type="revolute">
+      </joint>
+    <joint name="joint_WAIST_P" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>WAIST_Y_S</parent>
       <child>WAIST_P_S</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-0.52359900000000004</lower>
-          <upper>1.0471999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_WAIST_R" type="revolute">
+      </joint>
+    <joint name="joint_WAIST_R" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>WAIST_P_S</parent>
       <child>WAIST_R_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.87266500000000002</lower>
-          <upper>0.87266500000000002</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_NECK_Y" type="revolute">
+      </joint>
+    <joint name="joint_NECK_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>WAIST_R_S</parent>
       <child>NECK_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1.22173</lower>
-          <upper>1.22173</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_NECK_R" type="revolute">
+      </joint>
+    <joint name="joint_NECK_R" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>NECK_Y_S</parent>
       <child>NECK_R_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.87266500000000002</lower>
-          <upper>0.87266500000000002</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_NECK_P" type="revolute">
+      </joint>
+    <joint name="joint_NECK_P" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>NECK_R_S</parent>
       <child>NECK_P_S</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-0.87266500000000002</lower>
-          <upper>1.0471999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_SHOULDER_P" type="revolute">
+      </joint>
+    <joint name="joint_R_SHOULDER_P" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>WAIST_R_S</parent>
       <child>R_SHOULDER_P_S</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-3.1415899999999999</lower>
-          <upper>1.0471999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_SHOULDER_R" type="revolute">
+      </joint>
+    <joint name="joint_R_SHOULDER_R" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_SHOULDER_P_S</parent>
       <child>R_SHOULDER_R_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-1.74533</lower>
-          <upper>0.17453299999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_SHOULDER_Y" type="revolute">
+      </joint>
+    <joint name="joint_R_SHOULDER_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_SHOULDER_R_S</parent>
       <child>R_SHOULDER_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_ELBOW_P" type="revolute">
+      </joint>
+    <joint name="joint_R_ELBOW_P" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_SHOULDER_Y_S</parent>
       <child>R_ELBOW_P_S</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-2.5307300000000001</lower>
-          <upper>0</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_ELBOW_Y" type="revolute">
+      </joint>
+    <joint name="joint_R_ELBOW_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_ELBOW_P_S</parent>
       <child>R_ELBOW_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1.9198599999999999</lower>
-          <upper>1.9198599999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_WRIST_R" type="revolute">
+      </joint>
+    <joint name="joint_R_WRIST_R" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_ELBOW_Y_S</parent>
       <child>R_WRIST_R_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-1.9198599999999999</lower>
-          <upper>1.9198599999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_WRIST_Y" type="revolute">
+      </joint>
+    <joint name="joint_R_WRIST_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_WRIST_R_S</parent>
       <child>R_WRIST_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-2.6179899999999998</lower>
-          <upper>2.6179899999999998</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_UTHUMB" type="revolute">
+      </joint>
+    <joint name="joint_R_UTHUMB" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_WRIST_Y_S</parent>
       <child>R_UTHUMB_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.78539800000000004</lower>
-          <upper>0.78539800000000004</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_LTHUMB" type="revolute">
+      </joint>
+    <joint name="joint_R_LTHUMB" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_UTHUMB_S</parent>
       <child>R_LTHUMB_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-2.3561999999999999</lower>
-          <upper>2.3561999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_UINDEX" type="revolute">
+      </joint>
+    <joint name="joint_R_UINDEX" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_WRIST_Y_S</parent>
       <child>R_UINDEX_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.78539999999999999</lower>
-          <upper>0.78539999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_LINDEX" type="revolute">
+      </joint>
+    <joint name="joint_R_LINDEX" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_UINDEX_S</parent>
       <child>R_LINDEX_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-2.3561999999999999</lower>
-          <upper>2.3561999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_ULITTLE" type="revolute">
+      </joint>
+    <joint name="joint_R_ULITTLE" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_WRIST_Y_S</parent>
       <child>R_ULITTLE_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.78539999999999999</lower>
-          <upper>0.78539999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_R_LLITTLE" type="revolute">
+      </joint>
+    <joint name="joint_R_LLITTLE" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>R_ULITTLE_S</parent>
       <child>R_LLITTLE_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-2.3561999999999999</lower>
-          <upper>2.3561999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_SHOULDER_P" type="revolute">
+      </joint>
+    <joint name="joint_L_SHOULDER_P" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>WAIST_R_S</parent>
       <child>L_SHOULDER_P_S</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-3.1415899999999999</lower>
-          <upper>1.0471999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_SHOULDER_R" type="revolute">
+      </joint>
+    <joint name="joint_L_SHOULDER_R" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_SHOULDER_P_S</parent>
       <child>L_SHOULDER_R_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.17453299999999999</lower>
-          <upper>1.74533</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_SHOULDER_Y" type="revolute">
+      </joint>
+    <joint name="joint_L_SHOULDER_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_SHOULDER_R_S</parent>
       <child>L_SHOULDER_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1.5708</lower>
-          <upper>1.5708</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_ELBOW_P" type="revolute">
+      </joint>
+    <joint name="joint_L_ELBOW_P" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_SHOULDER_Y_S</parent>
       <child>L_ELBOW_P_S</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-2.5307300000000001</lower>
-          <upper>0</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_ELBOW_Y" type="revolute">
+      </joint>
+    <joint name="joint_L_ELBOW_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_ELBOW_P_S</parent>
       <child>L_ELBOW_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1.9198599999999999</lower>
-          <upper>1.9198599999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_WRIST_R" type="revolute">
+      </joint>
+    <joint name="joint_L_WRIST_R" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_ELBOW_Y_S</parent>
       <child>L_WRIST_R_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-1.9198599999999999</lower>
-          <upper>1.9198599999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_WRIST_Y" type="revolute">
+      </joint>
+    <joint name="joint_L_WRIST_Y" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_WRIST_R_S</parent>
       <child>L_WRIST_Y_S</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-2.6179899999999998</lower>
-          <upper>2.6179899999999998</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_UTHUMB" type="revolute">
+      </joint>
+    <joint name="joint_L_UTHUMB" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_WRIST_Y_S</parent>
       <child>L_UTHUMB_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.78539800000000004</lower>
-          <upper>0.78539800000000004</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_LTHUMB" type="revolute">
+      </joint>
+    <joint name="joint_L_LTHUMB" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_UTHUMB_S</parent>
       <child>L_LTHUMB_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-2.3561999999999999</lower>
-          <upper>2.3561999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_UINDEX" type="revolute">
+      </joint>
+    <joint name="joint_L_UINDEX" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_WRIST_Y_S</parent>
       <child>L_UINDEX_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.78539999999999999</lower>
-          <upper>0.78539999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_LINDEX" type="revolute">
+      </joint>
+    <joint name="joint_L_LINDEX" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_UINDEX_S</parent>
       <child>L_LINDEX_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-2.3561999999999999</lower>
-          <upper>2.3561999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_ULITTLE" type="revolute">
+      </joint>
+    <joint name="joint_L_ULITTLE" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_WRIST_Y_S</parent>
       <child>L_ULITTLE_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-0.78539999999999999</lower>
-          <upper>0.78539999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
-    <joint name="joint_L_LLITTLE" type="revolute">
+      </joint>
+    <joint name="joint_L_LLITTLE" type="fixed">
       <pose>0 0 0 0 0 0</pose>
       <parent>L_ULITTLE_S</parent>
       <child>L_LLITTLE_S</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-2.3561999999999999</lower>
-          <upper>2.3561999999999999</upper>
-          <effort>inf</effort>
-          <velocity>inf</velocity>
-          <stiffness>100000000</stiffness>
-          <dissipation>1</dissipation>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-          <damping>0.20000000000000001</damping>
-          <friction>0</friction>
-        </dynamics>
-      </axis>
-    </joint>
+      </joint>
   </model>
 </sdf>

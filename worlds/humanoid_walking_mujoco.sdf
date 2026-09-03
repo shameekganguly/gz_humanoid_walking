@@ -1,0 +1,274 @@
+<?xml version="1.0" ?>
+<!--
+  Humanoid Walking Demo world with MuJoCo Physics Backend.
+  HumanoidWalkingSystem Plugin attached to JVRC-1 humanoid robot.
+-->
+<sdf version="1.12"
+     xmlns:experimental="http://sdformat.org/schemas/experimental">
+  <world name="humanoid_walking_mujoco_world">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+      <engine>
+        <filename>gz-physics-mujoco-plugin</filename>
+      </engine>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- ===================================================================================================
+    JVRC-1 humanoid robot with head-mounted stereo pair, torso lidar sensor and HumanoidWalkingSystem Plugin
+    ==================================================================================================== -->
+    <model name="jvrc1_robot">
+      <pose>0 0 -0.54 0 0 0</pose>
+
+      <include merge="true">
+        <uri>model://jvrc1</uri>
+      </include>
+
+      <include>
+        <name>right_camera</name>
+        <uri>model://camera</uri>
+        <pose relative_to="NECK_P_S">0.115 -0.04 0.11 0 0 0</pose>
+        <experimental:params>
+          <sensor element_id="camera_link::camera">
+            <topic action="add">/jvrc1/right_camera</topic>
+          </sensor>
+        </experimental:params>
+      </include>
+
+      <joint name="right_camera_joint" type="fixed">
+        <parent>NECK_P_S</parent>
+        <child>right_camera::camera_link</child>
+      </joint>
+
+      <include>
+        <name>left_camera</name>
+        <uri>model://camera</uri>
+        <pose relative_to="NECK_P_S">0.115 0.04 0.11 0 0 0</pose>
+        <experimental:params>
+          <sensor element_id="camera_link::camera">
+            <topic action="add">/jvrc1/left_camera</topic>
+          </sensor>
+        </experimental:params>
+      </include>
+
+      <joint name="left_camera_joint" type="fixed">
+        <parent>NECK_P_S</parent>
+        <child>left_camera::camera_link</child>
+      </joint>
+
+      <include>
+        <uri>model://torso_lidar</uri>
+        <pose relative_to="WAIST_R_S">0.05 0 0 0 0 0</pose>
+        <experimental:params>
+          <sensor element_id="torso_lidar_link::torso_lidar">
+            <topic action="add">/jvrc1/torso_lidar/scan</topic>
+          </sensor>
+        </experimental:params>
+      </include>
+
+      <joint name="torso_lidar_joint" type="fixed">
+        <parent>WAIST_R_S</parent>
+        <child>torso_lidar::torso_lidar_link</child>
+      </joint>
+
+      <plugin
+        filename="gz_humanoid_walking_system"
+        name="gz_humanoid_walking::HumanoidWalkingSystem">
+        <!-- The forward velocity with which the robot should walk. Set this within 0 - 0.05m/s -->
+        <cmd_vel_x>0.05</cmd_vel_x>
+        <!-- The number of steps that the robot should take before stopping. -->
+        <num_steps>10</num_steps>
+      </plugin>
+    </model>
+
+    <!-- ================================================================================
+    Scene objects
+    ================================================================================= -->
+    <scene>
+      <grid>false</grid>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.8 0.8 0.8 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <include>
+      <name>warehouse</name>
+      <pose>-2 0 -0.01 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Distribution_Warehouse</uri>
+      <static>true</static>
+    </include>
+
+    <include>
+      <static>true</static>
+      <uri>model://checkered_floor</uri>
+    </include>
+
+    <!-- Left aisle (along Y = -2 from X = -3 to X = 4) -->
+    <include>
+      <name>shelf_left1</name>
+      <pose>-3 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_left2</name>
+      <pose>-2 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_left3</name>
+      <pose>-1 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_left4</name>
+      <pose>0 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_left5</name>
+      <pose>1 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_left6</name>
+      <pose>2 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_left7</name>
+      <pose>3 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_left8</name>
+      <pose>4 -2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+
+    <!-- Right aisle (along Y = 2 from X = -3 to X = 4) -->
+    <include>
+      <name>shelf_right1</name>
+      <pose>-3 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_right2</name>
+      <pose>-2 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_right3</name>
+      <pose>-1 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_right4</name>
+      <pose>0 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_right5</name>
+      <pose>1 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_right6</name>
+      <pose>2 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_right7</name>
+      <pose>3 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelf_right8</name>
+      <pose>4 2 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+
+     <!-- End of aisle -->
+    <include>
+      <name>shelves_end1</name>
+      <pose>5 1 0 0 0 1.5707</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelves_end2</name>
+      <pose>5 0 0 0 0 1.5707</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+    <include>
+      <name>shelves_end3</name>
+      <pose>5 -1 0 0 0 1.5707</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Picking_Shelves</uri>
+      <static>true</static>
+    </include>
+
+    <!-- Spotlight illuminating the end shelves -->
+    <light name="end_shelves_spotlight" type="spot">
+      <pose>2.0 0 6.0 0 0.707 0</pose>
+      <attenuation>
+        <range>15.0</range>
+        <linear>0.05</linear>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+      <direction>1 0 -0.6</direction>
+      <spot>
+        <inner_angle>0.6</inner_angle>
+        <outer_angle>1.2</outer_angle>
+      </spot>
+      <cast_shadows>true</cast_shadows>
+    </light>
+  </world>
+</sdf>

@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<sdf version="1.12">
+  <model name="torso_lidar">
+    <link name="torso_lidar_link">
+      <inertial auto="true">
+        <mass>0.10</mass>
+      </inertial>
+      <collision name="torso_lidar_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.03</radius>
+            <length>0.04</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="torso_lidar_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.03</radius>
+            <length>0.04</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1.0</ambient>
+          <diffuse>0.15 0.15 0.15 1.0</diffuse>
+          <specular>0.7 0.7 0.7 1.0</specular>
+        </material>
+      </visual>
+      <sensor name="torso_lidar" type="gpu_lidar">
+        <update_rate>20</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>640</samples>
+              <min_angle>-1.5707963</min_angle>
+              <max_angle>1.5707963</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>10.0</max>
+          </range>
+        </ray>
+      </sensor>
+    </link>
+  </model>
+</sdf>

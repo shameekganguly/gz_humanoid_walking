@@ -1,0 +1,97 @@
+# Gazebo Humanoid Walking (`gz_humanoid_walking`)
+
+A dynamic bipedal walking demo with full whole-body QP control, Linear Inverted Pendulum Model (LIPM) preview generation, and Pinocchio rigid-body dynamics running in Gazebo Sim (MuJoCo physics backend).
+
+## Workspace Prerequisites
+
+### 1. System Dependencies
+Install required Boost development libraries.
+
+```bash
+sudo apt-get update
+sudo apt-get install -y libboost-filesystem-dev libboost-serialization-dev
+```
+
+### 2. Gazebo Source Installation
+Follow the upstream instructions from [Gazebosim.org Source Installation](https://gazebosim.org/docs/latest/install_ubuntu_src/) to set up the colcon workspace and build with testing turned off (`-DBUILD_TESTING=OFF`).
+
+> [!NOTE]
+> The Rotary collection of branches should be imported using:
+> ```bash
+> vcs import --input https://raw.githubusercontent.com/gazebo-tooling/gazebodistro/master/collection-rotary.yaml src
+> ```
+> because only the Rotary collection currently includes the MuJoCo physics engine plugin.
+
+### 3. Clone this Repository
+Clone `gz_humanoid_walking` into the `src/` directory of your workspace:
+
+```bash
+# From workspace root:
+git clone --recursive git@github.com:shameekganguly/gz_humanoid_walking.git src/gz_humanoid_walking
+```
+
+All following instructions assume the following directory structure:
+
+```text
+(workspace)/
+└── src/
+    ├── gz-sim/
+    ├── (other gz-* packages and sdformat)
+    └── gz_humanoid_walking/
+```
+
+## Quick Start Scripts
+
+Helper scripts are provided in `src/gz_humanoid_walking/` that can be executed either from the package directory or from the colcon workspace root.
+
+### 1. Build and Test
+Automatically initializes git submodules (`pinocchio`, `eiquadprog`), compiles vendored dependencies and `gz_humanoid_walking`, and runs all unit tests:
+
+```bash
+# From workspace root:
+./src/gz_humanoid_walking/build.sh
+
+# Or from src/gz_humanoid_walking/:
+./build.sh
+```
+
+### 2. Clean Workspace Artifacts
+Cleans all build and install artifacts for `pinocchio` and `gz_humanoid_walking`:
+
+```bash
+# From workspace root:
+./src/gz_humanoid_walking/clean.sh
+
+# Or from src/gz_humanoid_walking/:
+./clean.sh
+```
+
+## Running the Simulation
+
+Use the `run_humanoid_walking.sh` script to automatically configure environment paths and launch the simulation. Any additional arguments passed to the script are forwarded directly to `gz sim`:
+
+```bash
+# Launch GUI simulation (from workspace root or package directory):
+./src/gz_humanoid_walking/run_humanoid_walking.sh
+
+# Or run headless simulation without GUI:
+./src/gz_humanoid_walking/run_humanoid_walking.sh --headless
+
+# Pass additional gz sim arguments (e.g. iterations or verbosity):
+./src/gz_humanoid_walking/run_humanoid_walking.sh --headless --iterations 1000 -v 4
+```
+
+## Repository Structure
+
+- `src/`: Controller, IK, dynamics wrapper, and Gazebo System plugin implementation.
+- `vendored/`: Git submodules for `eiquadprog` and `pinocchio`.
+- `models/`: Modular SDFormat robot and sensor models (`jvrc1`, `camera`, `torso_lidar`, `checkered_floor`).
+- `worlds/`: SDFormat 1.12 simulation world definitions.
+- `test/`: Unit test suite (`test_leg_ik`, `test_lipm_generator`, `test_pinocchio_dynamics`).
+- `build.sh`: Workspace detection and automated build/test runner.
+- `clean.sh`: Workspace cleaning utility for vendored dependencies and package targets.
+- `run_humanoid_walking.sh`: Helper runner for GUI and headless simulation execution.
+
+## AI use
+
+Most of this demo was created using Gemini 3.7 Flash in the Google Antigravity IDE.

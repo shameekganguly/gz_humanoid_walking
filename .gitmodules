@@ -1,0 +1,6 @@
+[submodule "vendored/eiquadprog"]
+	path = vendored/eiquadprog
+	url = https://github.com/stack-of-tasks/eiquadprog.git
+[submodule "vendored/pinocchio"]
+	path = vendored/pinocchio
+	url = https://github.com/stack-of-tasks/pinocchio.git
