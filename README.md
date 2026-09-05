@@ -95,3 +95,11 @@ Use the `run_humanoid_walking.sh` script to automatically configure environment 
 ## AI use
 
 Most of this demo was created using Gemini 3.7 Flash in the Google Antigravity IDE.
+
+## Licensing
+
+This project is licensed under the [Apache License 2.0](LICENSE).
+
+However, it embeds the following third-party dependencies as git submodules, which are governed by their own respective licenses:
+* [eiquadprog](https://github.com/stack-of-tasks/eiquadprog) - Licensed under [LGPL-3.0](vendored/eiquadprog/COPYING.LESSER)
+* [Pinocchio](https://github.com/stack-of-tasks/pinocchio) - Licensed under [BSD-2-Clause](vendored/pinocchio/LICENSE)
