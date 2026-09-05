@@ -40,6 +40,7 @@ colcon build \
   --base-paths src/gz_humanoid_walking/vendored \
   --packages-select pinocchio \
   --cmake-args \
+    -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_TESTING=OFF \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_BENCHMARK=OFF \
@@ -54,6 +55,7 @@ echo "==> Building gz_humanoid_walking..."
 colcon build \
   --packages-select gz_humanoid_walking \
   --cmake-args \
+    -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_TESTING=ON \
   --merge-install \
   --symlink-install
