@@ -38,6 +38,11 @@
       <render_engine>ogre2</render_engine>
     </plugin>
 
+    <plugin
+      filename="gz-sim-contact-system"
+      name="gz::sim::systems::Contact">
+    </plugin>
+
     <!-- ===================================================================================================
     JVRC-1 humanoid robot with head-mounted stereo pair, torso lidar sensor and HumanoidWalkingSystem Plugin
     ==================================================================================================== -->
@@ -46,6 +51,24 @@
 
       <include merge="true">
         <uri>model://jvrc1</uri>
+        <experimental:params>
+          <sensor element_id="L_ANKLE_P_S" name="left_foot_contact" type="contact" action="add">
+            <always_on>1</always_on>
+            <update_rate>50</update_rate>
+            <contact>
+              <collision>collision_0</collision>
+              <topic>/jvrc1/left_foot_contact</topic>
+            </contact>
+          </sensor>
+          <sensor element_id="R_ANKLE_P_S" name="right_foot_contact" type="contact" action="add">
+            <always_on>1</always_on>
+            <update_rate>50</update_rate>
+            <contact>
+              <collision>collision_0</collision>
+              <topic>/jvrc1/right_foot_contact</topic>
+            </contact>
+          </sensor>
+        </experimental:params>
       </include>
 
       <include>
