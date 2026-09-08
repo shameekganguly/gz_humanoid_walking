@@ -2,6 +2,9 @@
 <!--
   Humanoid Walking Demo world with MuJoCo Physics Backend.
   HumanoidWalkingSystem Plugin attached to JVRC-1 humanoid robot.
+
+  Note: The warehouse model is disabled below to improve performance.
+  Uncomment it to show the full demo environment including the warehouse.
 -->
 <sdf version="1.12"
      xmlns:experimental="http://sdformat.org/schemas/experimental">
@@ -123,12 +126,12 @@
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
-    <include>
+    <!-- <include>
       <name>warehouse</name>
       <pose>-2 0 -0.01 0 0 0</pose>
       <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Distribution_Warehouse</uri>
       <static>true</static>
-    </include>
+    </include> -->
 
     <include>
       <static>true</static>
