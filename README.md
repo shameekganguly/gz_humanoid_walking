@@ -1,6 +1,12 @@
-# Gazebo Humanoid Walking (`gz_humanoid_walking`)
+# Demo of Humanoid Walking with Gazebo Sim
 
 A dynamic bipedal walking demo with full whole-body QP control, Linear Inverted Pendulum Model (LIPM) preview generation, and Pinocchio rigid-body dynamics running in Gazebo Sim (MuJoCo physics backend).
+
+<img width="600" height="492" alt="output_gz_mujoco_no_lidar_forces_600" src="https://github.com/user-attachments/assets/2cb987ba-933a-453c-b1fb-6032107c76c9" />
+
+_Demo with torso-mounted lidar sensor_
+<img width="600" height="492" alt="output_gz_mujoco_with_lidar" src="https://github.com/user-attachments/assets/777dc946-ddfb-495c-8604-4c375e0544ba" />
+
 
 ## Workspace Prerequisites
 
