@@ -7,6 +7,8 @@ namespace gz_humanoid_walking
 
 LIPMGenerator::LIPMGenerator(const LIPMConfig &_config)
   : config_(_config),
+    pendingCmdVx_(_config.initialCmdVx),
+    cmdVx_(_config.initialCmdVx),
     numSteps_(_config.numSteps)
 {
   ComputePreviewGains();
@@ -206,7 +208,6 @@ void LIPMGenerator::Initialize(
   comPos_.y() = p0.y();
   comPos_.z() = config_.z_c;
   comVel_.setZero();
-  comAcc_.setZero();
 
   stateX_ << comPos_.x(), 0.0, 0.0;
   stateY_ << comPos_.y(), 0.0, 0.0;
@@ -229,6 +230,9 @@ void LIPMGenerator::Initialize(
   totalTime_ = 0.0;
   stepCount_ = 0;
   isStopped_ = false;
+  lastStepIdx_ = -1;
+  cmdVx_ = config_.initialCmdVx;
+  pendingCmdVx_.store(config_.initialCmdVx, std::memory_order_relaxed);
 
   double measuredSeparation = (_leftFoot.head<2>() - _rightFoot.head<2>()).norm();
   if (measuredSeparation > 0.05)
@@ -247,7 +251,12 @@ void LIPMGenerator::Initialize(
 
 void LIPMGenerator::SetVelocity(double _vx)
 {
-  cmdVx_ = _vx;
+  pendingCmdVx_.store(_vx, std::memory_order_relaxed);
+  // During initial DSP / preparation phase before walking begins, update active velocity immediately
+  if (totalTime_ <= config_.initDspDuration)
+  {
+    cmdVx_ = _vx;
+  }
 }
 
 void LIPMGenerator::Step()
@@ -255,6 +264,27 @@ void LIPMGenerator::Step()
   double dt = config_.dt;
   totalTime_ += dt;
   stepTime_ += dt;
+
+  // Latch commanded velocity at step boundaries or during initial DSP
+  double initDsp = config_.initDspDuration;
+  double Tstep = config_.stepDuration;
+  if (totalTime_ <= initDsp)
+  {
+    cmdVx_ = pendingCmdVx_.load(std::memory_order_relaxed);
+  }
+  else
+  {
+    double tWalk = totalTime_ - initDsp;
+    int currentStepIdx = static_cast<int>(std::floor(tWalk / Tstep));
+    if (numSteps_ <= 0 || currentStepIdx < numSteps_)
+    {
+      if (currentStepIdx != lastStepIdx_)
+      {
+        lastStepIdx_ = currentStepIdx;
+        cmdVx_ = pendingCmdVx_.load(std::memory_order_relaxed);
+      }
+    }
+  }
 
   // 1. Maintain preview queue of future footsteps
   while (zmpRefQueue_.size() < static_cast<size_t>(config_.previewSteps + 50))
@@ -264,8 +294,6 @@ void LIPMGenerator::Step()
   }
 
   // 2. Footstep State Machine & Foot Trajectory Generation
-  double initDsp = config_.initDspDuration;
-  double Tstep = config_.stepDuration;
   double Tdsp = config_.dspDuration;
   double Tssp = std::max(0.01, Tstep - Tdsp);
   double stepLen = cmdVx_ * Tstep;
@@ -401,10 +429,6 @@ void LIPMGenerator::Step()
   comVel_.x() = stateX_(1);
   comVel_.y() = stateY_(1);
   comVel_.z() = 0.0;
-
-  comAcc_.x() = stateX_(2);
-  comAcc_.y() = stateY_(2);
-  comAcc_.z() = 0.0;
 
   zmpRefQueue_.pop_front();
 

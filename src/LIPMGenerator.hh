@@ -2,18 +2,14 @@
 #define GZ_HUMANOID_WALKING_LIPMGENERATOR_HH_
 
 #include <Eigen/Dense>
+#include <atomic>
 #include <deque>
 #include <vector>
 
+#include "types.hh"
+
 namespace gz_humanoid_walking
 {
-
-enum class SupportState
-{
-  DOUBLE_SUPPORT,
-  LEFT_SUPPORT,
-  RIGHT_SUPPORT
-};
 
 struct Footstep
 {
@@ -51,7 +47,11 @@ struct LIPMConfig
   /// \brief Lateral ZMP reference offset from centerline [m] (default 0.065m).
   double zmpMargin{0.065};
 
-  /// \brief Preview horizon length in steps (160 * 0.005s = 0.8s lookahead).
+  /// \brief Preview horizon length in discrete control timesteps (default 160 * 0.005s = 0.8s lookahead).
+  /// Because the LIPM inverted pendulum dynamics have an unstable pole
+  /// omega_0 = sqrt(g / z_c) ~= 3.51 rad/s (time constant tau = 1 / omega_0 ~= 0.28 s),
+  /// the preview controller requires at least 2 to 3 * tau (~0.6 to 0.8 s) of future ZMP
+  /// lookahead to anticipate footstep transitions and avoid dynamic divergence.
   int previewSteps{160};
 
   /// \brief Diagnostic verbosity level (< 3: quiet, >= 3: periodic stats, >= 4: verbose diagnostics).
@@ -59,8 +59,24 @@ struct LIPMConfig
 
   /// \brief Total number of steps to walk before bringing feet together and stopping (-1 for infinite).
   int numSteps{-1};
+
+  /// \brief Initial commanded forward velocity [m/s] (default 0.0).
+  double initialCmdVx{0.0};
 };
 
+/// \brief Linear Inverted Pendulum Model (LIPM) walking pattern generator
+/// utilizing a discrete-time preview controller on Zero-Moment Point (ZMP).
+///
+/// This generator plans dynamic Center of Mass (CoM) trajectories and swing
+/// foot profiles from commanded walking velocity and planned footstep locations.
+/// The preview control law resolves future ZMP preview errors by solving the
+/// Discrete Algebraic Riccati Equation (DARE) for the cart-table preview system.
+///
+/// Reference:
+///   S. Kajita et al., "Biped walking pattern generation by using preview control
+///   of zero-moment point," 2003 IEEE International Conference on Robotics and
+///   Automation (Cat. No.03CH37422), Taipei, Taiwan, 2003, pp. 1620-1626 vol.2,
+///   doi: 10.1109/ROBOT.2003.1241826.
 class LIPMGenerator
 {
 public:
@@ -81,9 +97,6 @@ public:
   /// \param[in] _vx Forward velocity in Body X frame [m/s]
   void SetVelocity(double _vx);
 
-  /// \brief Set the number of steps to walk (-1 for unlimited)
-  void SetNumSteps(int _numSteps) { numSteps_ = _numSteps; }
-  int NumSteps() const { return numSteps_; }
   bool IsStopped() const { return isStopped_; }
 
   /// \brief Step the preview controller and trajectory generation by dt
@@ -97,7 +110,6 @@ public:
   // Accessors
   Eigen::Vector3d CoMPosition() const { return comPos_; }
   Eigen::Vector3d CoMVelocity() const { return comVel_; }
-  Eigen::Vector3d CoMAcceleration() const { return comAcc_; }
 
   Eigen::Vector3d LeftFootPosition() const { return leftFootPos_; }
   Eigen::Matrix3d LeftFootOrientation() const { return leftFootRot_; }
@@ -106,18 +118,25 @@ public:
   Eigen::Matrix3d RightFootOrientation() const { return rightFootRot_; }
 
   SupportState CurrentSupportState() const { return currentSupport_; }
-  double StepProgress() const { return stepTime_ / config_.stepDuration; }
-  double InitialYaw() const { return initYaw_; }
+
+  /// \brief Commanded forward velocity in Body frame [m/s] (thread-safe)
+  double CommandedVelocity() const { return pendingCmdVx_.load(std::memory_order_relaxed); }
+
+  /// \brief Active forward velocity currently latched for the step [m/s]
+  double ActiveVelocity() const { return cmdVx_; }
 
 private:
   void ComputePreviewGains();
-  void UpdateFootsteps();
   Eigen::Vector2d GetZMPAtTime(double _t) const;
 
   LIPMConfig config_;
 
   // Commanded forward velocity (Body frame)
+  // pendingCmdVx_ is written asynchronously from the transport thread (thread-safe).
+  // cmdVx_ is latched at step boundaries on the simulation thread to prevent mid-swing shifts.
+  std::atomic<double> pendingCmdVx_{0.0};
   double cmdVx_{0.0};
+  int lastStepIdx_{-1};
   int numSteps_{-1};
   bool isStopped_{false};
 
@@ -129,7 +148,6 @@ private:
   // State
   Eigen::Vector3d comPos_{Eigen::Vector3d::Zero()};
   Eigen::Vector3d comVel_{Eigen::Vector3d::Zero()};
-  Eigen::Vector3d comAcc_{Eigen::Vector3d::Zero()};
 
   Eigen::Vector3d leftFootPos_{Eigen::Vector3d::Zero()};
   Eigen::Matrix3d leftFootRot_{Eigen::Matrix3d::Identity()};
@@ -139,9 +157,6 @@ private:
 
   Eigen::Vector3d initFootL_{Eigen::Vector3d::Zero()};
   Eigen::Vector3d initFootR_{Eigen::Vector3d::Zero()};
-
-  Eigen::Vector3d swingStartFootPos_{Eigen::Vector3d::Zero()};
-  Eigen::Vector3d swingTargetFootPos_{Eigen::Vector3d::Zero()};
 
   SupportState currentSupport_{SupportState::DOUBLE_SUPPORT};
   double stepTime_{0.0};

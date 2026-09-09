@@ -2,24 +2,24 @@
 #define GZ_HUMANOID_WALKING_WHOLEBODYQPCONTROLLER_HH_
 
 #include <Eigen/Dense>
-#include <vector>
-#include <string>
+#include <array>
+#include <string_view>
 #include <unordered_map>
 
-#include <eiquadprog/eiquadprog.hpp>
 #include "LegIK.hh"
 #include "LIPMGenerator.hh"
 
 namespace gz_humanoid_walking
 {
 
+template <std::size_t NumJoints = 12>
 class WholeBodyQPController
 {
 public:
-  WholeBodyQPController();
+  explicit WholeBodyQPController(
+      const std::array<std::string_view, NumJoints> &_jointNames,
+      int _verbosity = 3);
   ~WholeBodyQPController() = default;
-
-  void Initialize(const std::vector<std::string> &_jointNames);
 
   /**
    * @brief Solves the Whole-Body QP using eiquadprog
@@ -34,23 +34,20 @@ public:
       SupportState _support,
       const Eigen::VectorXd &_currentQ,
       double _dt,
-      Eigen::VectorXd &_targetQ,
-      Eigen::VectorXd &_targetQd);
+      Eigen::Matrix<double, NumJoints, 1> &_targetQ,
+      Eigen::Matrix<double, NumJoints, 1> &_targetQd);
 
-  void SetVerbosity(int _v) { verbosity_ = _v; }
-  const std::vector<std::string> &JointNames() const { return jointNames_; }
+  const std::array<std::string_view, NumJoints> &JointNames() const { return jointNames_; }
 
 private:
-  std::vector<std::string> jointNames_;
-  std::unordered_map<std::string, int> jointIndexMap_;
+  std::array<std::string_view, NumJoints> jointNames_;
+  std::unordered_map<std::string_view, int> jointIndexMap_;
 
   LegIK legIK_;
-  Eigen::VectorXd qNominal_;
-  Eigen::VectorXd qMin_;
-  Eigen::VectorXd qMax_;
-  Eigen::VectorXd qdMax_;
-
-  int numJoints_{12};
+  Eigen::Matrix<double, NumJoints, 1> qNominal_;
+  Eigen::Matrix<double, NumJoints, 1> qMin_;
+  Eigen::Matrix<double, NumJoints, 1> qMax_;
+  Eigen::Matrix<double, NumJoints, 1> qdMax_;
 
   // 1-Second Periodic Logging Accumulators
   double qpLogTimer_{0.0};

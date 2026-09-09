@@ -1,178 +1,266 @@
+#include <gtest/gtest.h>
 #include "LIPMGenerator.hh"
+
+#include <atomic>
 #include <cmath>
-#include <iostream>
+#include <thread>
 #include <vector>
 
 using namespace gz_humanoid_walking;
 
-int main()
+/// \brief Test fixture for LIPMGenerator unit tests
+class LIPMGeneratorTest : public ::testing::Test
 {
-  std::cout << "Running LIPMGenerator tests..." << std::endl;
+protected:
+  void SetUp() override
+  {
+    config_.dt = 0.005;
+    config_.z_c = 0.795;
+    config_.stepDuration = 1.00;
+    config_.dspDuration = 0.50;
+    config_.initDspDuration = 0.50;
+    config_.zmpMargin = 0.065;
+    config_.footSeparation = 0.192;
+  }
 
-  LIPMConfig config;
-  config.dt = 0.005;
-  config.z_c = 0.795;
-  config.stepDuration = 1.00;
-  config.dspDuration = 0.50;
-  config.initDspDuration = 0.50;
-  config.zmpMargin = 0.065;
-  config.footSeparation = 0.192;
+  LIPMConfig config_;
+};
 
-  LIPMGenerator gen(config);
+/// \brief Test DARE preview gain convergence and residual metrics
+TEST_F(LIPMGeneratorTest, DAREConvergence)
+{
+  LIPMGenerator gen(config_);
 
-  Eigen::Vector3d initCoM(0.0, 0.0, 0.78);
-  Eigen::Vector3d initLeft(0.0, 0.096, 0.0);
-  Eigen::Vector3d initRight(0.0, -0.096, 0.0);
+  EXPECT_TRUE(gen.DareConverged());
+  EXPECT_GT(gen.DareIterations(), 0);
+  EXPECT_LT(gen.DareIterations(), 100);
+  EXPECT_LT(gen.DareResidual(), 1e-6);
+}
+
+/// \brief Test initialization and initial double support state
+TEST_F(LIPMGeneratorTest, InitialStateAndDoubleSupport)
+{
+  LIPMGenerator gen(config_);
+
+  const Eigen::Vector3d initCoM(0.0, 0.0, 0.78);
+  const Eigen::Vector3d initLeft(0.0, 0.096, 0.0);
+  const Eigen::Vector3d initRight(0.0, -0.096, 0.0);
 
   gen.Initialize(initCoM, initLeft, initRight);
   gen.SetVelocity(0.15);
 
-  if (gen.CurrentSupportState() != SupportState::DOUBLE_SUPPORT)
-  {
-    std::cerr << "FAIL: Initial state is not double support" << std::endl;
-    return 1;
-  }
-  std::cout << "  [PASS] Initial state verified." << std::endl;
+  EXPECT_EQ(gen.CurrentSupportState(), SupportState::DOUBLE_SUPPORT);
+  EXPECT_NEAR(gen.CoMPosition().z(), config_.z_c, 1e-4);
+  EXPECT_NEAR(gen.LeftFootPosition().y(), 0.096, 1e-4);
+  EXPECT_NEAR(gen.RightFootPosition().y(), -0.096, 1e-4);
+  EXPECT_FALSE(gen.IsStopped());
+}
+
+/// \brief Test multi-cycle walking, no NaNs, support state transitions, and forward progression
+TEST_F(LIPMGeneratorTest, WalkCycleAndForwardProgression)
+{
+  LIPMGenerator gen(config_);
+
+  const Eigen::Vector3d initCoM(0.0, 0.0, 0.78);
+  const Eigen::Vector3d initLeft(0.0, 0.096, 0.0);
+  const Eigen::Vector3d initRight(0.0, -0.096, 0.0);
+
+  gen.Initialize(initCoM, initLeft, initRight);
+  gen.SetVelocity(0.15);
+
+  bool visitedLeftSupport = false;
+  bool visitedRightSupport = false;
 
   // Run 600 steps (3.0s -> multiple full step cycles)
   for (int i = 0; i < 600; ++i)
   {
-    double t = i * 0.005;
-    if (i % 40 == 0)
-    {
-      std::string sup = (gen.CurrentSupportState() == SupportState::DOUBLE_SUPPORT) ? "DOUBLE" :
-                        (gen.CurrentSupportState() == SupportState::LEFT_SUPPORT) ? "LEFT  " : "RIGHT ";
-      std::cout << "  [LIPM Test] t=" << t << "s | " << sup
-                << " | CoM: [" << gen.CoMPosition().x() << ", " << gen.CoMPosition().y() << "]"
-                << " | L_Foot: [" << gen.LeftFootPosition().x() << ", " << gen.LeftFootPosition().y() << "]"
-                << " | R_Foot: [" << gen.RightFootPosition().x() << ", " << gen.RightFootPosition().y() << "]"
-                << std::endl;
-    }
     gen.Step();
-    if (std::isnan(gen.CoMPosition().x()) || std::isnan(gen.CoMPosition().y()))
-    {
-      std::cerr << "FAIL: NaN detected in CoM position at step " << i << std::endl;
-      return 1;
-    }
+
+    EXPECT_FALSE(std::isnan(gen.CoMPosition().x())) << "NaN in CoM x at step " << i;
+    EXPECT_FALSE(std::isnan(gen.CoMPosition().y())) << "NaN in CoM y at step " << i;
+    EXPECT_FALSE(std::isnan(gen.CoMPosition().z())) << "NaN in CoM z at step " << i;
+
+    if (gen.CurrentSupportState() == SupportState::LEFT_SUPPORT)
+      visitedLeftSupport = true;
+    if (gen.CurrentSupportState() == SupportState::RIGHT_SUPPORT)
+      visitedRightSupport = true;
   }
 
-  if (gen.CoMPosition().x() <= 0.10)
-  {
-    std::cerr << "FAIL: CoM did not advance forward: x = " << gen.CoMPosition().x() << std::endl;
-    return 1;
-  }
-  if (std::abs(gen.CoMPosition().z() - config.z_c) > 1e-4)
-  {
-    std::cerr << "FAIL: CoM height varied: z = " << gen.CoMPosition().z() << std::endl;
-    return 1;
-  }
-  std::cout << "  [PASS] CoM forward progression verified (x = " << gen.CoMPosition().x() << " m)." << std::endl;
+  // Verify support state transitions occurred
+  EXPECT_TRUE(visitedLeftSupport);
+  EXPECT_TRUE(visitedRightSupport);
 
-  // Test Swing Foot Clearance
-  LIPMConfig config2;
-  config2.dt = 0.005;
-  config2.footClearance = 0.05;
-  config2.dspDuration = 0.10;
-  config2.initDspDuration = 0.20;
+  // CoM should advance forward significantly (> 0.10 m)
+  EXPECT_GT(gen.CoMPosition().x(), 0.10);
 
-  LIPMGenerator gen2(config2);
-  gen2.Initialize({0, 0, 0.78}, {0, 0.096, 0}, {0, -0.096, 0});
-  gen2.SetVelocity(0.2);
+  // CoM height should stay clamped to configured z_c
+  EXPECT_NEAR(gen.CoMPosition().z(), config_.z_c, 1e-4);
+}
+
+/// \brief Test swing foot parabolic clearance trajectory
+TEST_F(LIPMGeneratorTest, SwingFootClearance)
+{
+  LIPMConfig swingConfig = config_;
+  swingConfig.footClearance = 0.05;
+  swingConfig.dspDuration = 0.10;
+  swingConfig.initDspDuration = 0.20;
+
+  LIPMGenerator gen(swingConfig);
+  gen.Initialize({0, 0, 0.78}, {0, 0.096, 0}, {0, -0.096, 0});
+  gen.SetVelocity(0.2);
 
   double maxSwingHeight = 0.0;
   for (int i = 0; i < 300; ++i)
   {
-    gen2.Step();
-    if (gen2.CurrentSupportState() == SupportState::RIGHT_SUPPORT)
+    gen.Step();
+    if (gen.CurrentSupportState() == SupportState::RIGHT_SUPPORT)
     {
-      maxSwingHeight = std::max(maxSwingHeight, gen2.LeftFootPosition().z());
+      maxSwingHeight = std::max(maxSwingHeight, gen.LeftFootPosition().z());
     }
   }
 
-  if (maxSwingHeight < 0.04 || maxSwingHeight > 0.06)
-  {
-    std::cerr << "FAIL: Swing foot clearance out of bounds: " << maxSwingHeight << std::endl;
-    return 1;
-  }
-  std::cout << "  [PASS] Swing foot clearance verified (max height = " << maxSwingHeight << " m)." << std::endl;
+  // Apex clearance should be within reasonable bounds around configured footClearance (0.05 m)
+  EXPECT_GE(maxSwingHeight, 0.04);
+  EXPECT_LE(maxSwingHeight, 0.06);
+}
 
-  // Test 3: Rotated Heading (90 degrees, facing world +Y)
-  LIPMConfig config3;
-  config3.dt = 0.005;
-  config3.stepDuration = 0.8;
-  config3.dspDuration = 0.10;
-  config3.initDspDuration = 0.20;
+/// \brief Test walking progression along rotated heading (90 degrees, facing world +Y)
+TEST_F(LIPMGeneratorTest, RotatedHeading90Degrees)
+{
+  LIPMConfig rotConfig = config_;
+  rotConfig.stepDuration = 0.8;
+  rotConfig.dspDuration = 0.10;
+  rotConfig.initDspDuration = 0.20;
 
-  LIPMGenerator gen3(config3);
-  double yaw90 = M_PI / 2.0;
+  LIPMGenerator gen(rotConfig);
+  const double yaw90 = M_PI / 2.0;
+
   // In 90-deg yaw: left foot is at (-0.096, 0), right foot is at (+0.096, 0)
-  gen3.Initialize({0, 0, 0.78}, {-0.096, 0.0, 0.0}, {0.096, 0.0, 0.0}, yaw90);
-  gen3.SetVelocity(0.15); // 0.15 m/s forward in Body frame (should move along world +Y)
+  gen.Initialize({0, 0, 0.78}, {-0.096, 0.0, 0.0}, {0.096, 0.0, 0.0}, yaw90);
+  gen.SetVelocity(0.15); // Forward in Body frame -> +Y in World frame
 
   for (int i = 0; i < 600; ++i)
   {
-    gen3.Step();
+    gen.Step();
   }
 
-  if (gen3.CoMPosition().y() <= 0.10)
-  {
-    std::cerr << "FAIL: Rotated CoM did not advance along world +Y: y = " << gen3.CoMPosition().y() << std::endl;
-    return 1;
-  }
-  std::cout << "  [PASS] Rotated 90-deg heading progression verified (world y = " << gen3.CoMPosition().y() << " m)." << std::endl;
+  // World Y should advance forward (> 0.10 m)
+  EXPECT_GT(gen.CoMPosition().y(), 0.10);
 
-  // Test 4: Num steps stopping and side-by-side feet alignment
-  LIPMConfig config4;
-  config4.dt = 0.005;
-  config4.stepDuration = 1.0;
-  config4.dspDuration = 0.50;
-  config4.initDspDuration = 0.50;
-  config4.numSteps = 4;
+  // World X should remain close to 0 with minimal lateral drift
+  EXPECT_NEAR(gen.CoMPosition().x(), 0.0, 0.05);
+}
 
-  LIPMGenerator gen4(config4);
-  gen4.Initialize({0, 0, 0.78}, {0, 0.096, 0}, {0, -0.096, 0});
-  gen4.SetVelocity(0.10); // 0.1 m/s -> stepLen = 0.1 m, finalX = 4 * 0.1 = 0.4 m
+/// \brief Test walking stop after finite numSteps and side-by-side feet alignment
+TEST_F(LIPMGeneratorTest, StoppingAndFeetAlignment)
+{
+  LIPMConfig stepConfig = config_;
+  stepConfig.stepDuration = 1.0;
+  stepConfig.dspDuration = 0.50;
+  stepConfig.initDspDuration = 0.50;
+  stepConfig.numSteps = 4;
+
+  LIPMGenerator gen(stepConfig);
+  gen.Initialize({0, 0, 0.78}, {0, 0.096, 0}, {0, -0.096, 0});
+  gen.SetVelocity(0.10); // 0.1 m/s -> stepLen = 0.1 m, final expected X = (4 - 1) * 0.1 = 0.3 m
 
   // Step for 8 seconds (1600 iterations)
   for (int i = 0; i < 1600; ++i)
   {
-    gen4.Step();
+    gen.Step();
   }
 
-  if (!gen4.IsStopped())
+  EXPECT_TRUE(gen.IsStopped());
+  EXPECT_EQ(gen.CurrentSupportState(), SupportState::DOUBLE_SUPPORT);
+
+  const double expectedX = (4 - 1) * 0.10; // 0.3 m
+  const double lFootX = gen.LeftFootPosition().x();
+  const double rFootX = gen.RightFootPosition().x();
+
+  // Feet should be aligned side-by-side within 1mm
+  EXPECT_NEAR(lFootX, rFootX, 1e-3);
+  EXPECT_NEAR(lFootX, expectedX, 1e-3);
+
+  // CoM velocity should settle to near zero (< 0.02 m/s)
+  EXPECT_NEAR(gen.CoMVelocity().x(), 0.0, 0.02);
+  EXPECT_NEAR(gen.CoMVelocity().y(), 0.0, 0.02);
+}
+
+/// \brief Test that commanded velocity updates are latched only at step boundaries
+TEST_F(LIPMGeneratorTest, StepBoundaryVelocityLatching)
+{
+  LIPMConfig latchConfig = config_;
+  latchConfig.stepDuration = 1.0;
+  latchConfig.initDspDuration = 0.5;
+  latchConfig.dspDuration = 0.2;
+
+  LIPMGenerator gen(latchConfig);
+  gen.Initialize({0, 0, 0.78}, {0, 0.096, 0}, {0, -0.096, 0});
+  gen.SetVelocity(0.10);
+
+  EXPECT_DOUBLE_EQ(gen.CommandedVelocity(), 0.10);
+  EXPECT_DOUBLE_EQ(gen.ActiveVelocity(), 0.10);
+
+  // Step into middle of step 0 (totalTime = 0.5s initDsp + 0.3s into step 0 = 0.8s)
+  // 0.8s / 0.005s = 160 steps
+  for (int i = 0; i < 160; ++i)
   {
-    std::cerr << "FAIL: Generator did not enter stopped state after numSteps=4" << std::endl;
-    return 1;
-  }
-  if (gen4.CurrentSupportState() != SupportState::DOUBLE_SUPPORT)
-  {
-    std::cerr << "FAIL: Final state is not DOUBLE_SUPPORT" << std::endl;
-    return 1;
+    gen.Step();
   }
 
-  double expectedX = (4 - 1) * 0.10; // 0.3 m (after 4 steps: steps 0, 1, 2, and closing step 3)
-  double lFootX = gen4.LeftFootPosition().x();
-  double rFootX = gen4.RightFootPosition().x();
-  double footDiff = std::abs(lFootX - rFootX);
+  // Active velocity during step 0 should still be 0.10
+  EXPECT_DOUBLE_EQ(gen.ActiveVelocity(), 0.10);
 
-  if (footDiff > 1e-3)
+  // Command a new velocity mid-swing
+  gen.SetVelocity(0.25);
+  EXPECT_DOUBLE_EQ(gen.CommandedVelocity(), 0.25);
+  // Active velocity must NOT change mid-swing
+  gen.Step();
+  EXPECT_DOUBLE_EQ(gen.ActiveVelocity(), 0.10);
+
+  // Step until step 1 begins (totalTime reaches 0.5s + 1.0s = 1.5s -> 300 steps)
+  // Currently at step 161; step to 305 steps
+  for (int i = 161; i < 305; ++i)
   {
-    std::cerr << "FAIL: Feet are not aligned side-by-side! L_x=" << lFootX << ", R_x=" << rFootX << ", diff=" << footDiff << std::endl;
-    return 1;
-  }
-  if (std::abs(lFootX - expectedX) > 1e-3)
-  {
-    std::cerr << "FAIL: Final foot position (" << lFootX << ") does not match expected (" << expectedX << ")" << std::endl;
-    return 1;
-  }
-  if (std::abs(gen4.CoMVelocity().x()) > 0.02 || std::abs(gen4.CoMVelocity().y()) > 0.02)
-  {
-    std::cerr << "FAIL: CoM velocity did not settle to ~0: vx=" << gen4.CoMVelocity().x() << ", vy=" << gen4.CoMVelocity().y() << std::endl;
-    return 1;
+    gen.Step();
   }
 
-  std::cout << "  [PASS] Num steps stopping verified (Feet side-by-side at X = " << lFootX << " m, diff = " << footDiff << " m, CoM settled)." << std::endl;
+  // At step 1, the new velocity should now be latched
+  EXPECT_DOUBLE_EQ(gen.ActiveVelocity(), 0.25);
+}
 
-  std::cout << "All LIPMGenerator tests PASSED successfully." << std::endl;
-  return 0;
+/// \brief Test concurrent thread-safe SetVelocity calls while simulation thread executes Step()
+TEST_F(LIPMGeneratorTest, ConcurrentVelocityUpdates)
+{
+  LIPMGenerator gen(config_);
+  gen.Initialize({0, 0, 0.78}, {0, 0.096, 0}, {0, -0.096, 0});
+  gen.SetVelocity(0.10);
+
+  std::atomic<bool> running{true};
+
+  // Background thread simulating asynchronous Gazebo Transport callbacks
+  std::thread transportThread([&]() {
+    double v = 0.05;
+    while (running.load(std::memory_order_relaxed))
+    {
+      gen.SetVelocity(v);
+      v += 0.01;
+      if (v > 0.30) v = 0.05;
+      std::this_thread::yield();
+    }
+  });
+
+  // Simulation thread executing physics / trajectory steps
+  for (int i = 0; i < 400; ++i)
+  {
+    gen.Step();
+    EXPECT_FALSE(std::isnan(gen.CoMPosition().x()));
+    EXPECT_FALSE(std::isnan(gen.CoMPosition().y()));
+    EXPECT_FALSE(std::isnan(gen.CoMPosition().z()));
+  }
+
+  running.store(false, std::memory_order_relaxed);
+  transportThread.join();
+
+  EXPECT_GT(gen.CoMPosition().x(), 0.05);
 }

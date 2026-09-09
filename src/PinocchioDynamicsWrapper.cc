@@ -1,6 +1,7 @@
 #include "PinocchioDynamicsWrapper.hh"
 
 #include <iostream>
+#include <stdexcept>
 #include <pinocchio/multibody/model.hpp>
 #include <pinocchio/multibody/data.hpp>
 #include <pinocchio/parsers/sdf.hpp>
@@ -15,48 +16,34 @@
 namespace gz_humanoid_walking
 {
 
-struct PinocchioDynamicsWrapper::Impl
+template <std::size_t NumJoints>
+struct PinocchioDynamicsWrapper<NumJoints>::Impl
 {
   bool initialized{false};
   pinocchio::Model model;
   pinocchio::Data data;
 
-  std::vector<std::string> actuatedJointNames;
-  std::vector<int> pinocchioJointIds;
-  std::vector<int> pinocchioQIndices;
-  std::vector<int> pinocchioVIndices;
+  std::array<std::string, NumJoints> actuatedJointNames{};
+  std::array<int, NumJoints> pinocchioJointIds{};
+  std::array<int, NumJoints> pinocchioQIndices{};
+  std::array<int, NumJoints> pinocchioVIndices{};
 
   int leftFootFrameId{-1};
   int rightFootFrameId{-1};
   double totalMass{0.0};
 };
 
-PinocchioDynamicsWrapper::PinocchioDynamicsWrapper()
-  : pimpl_(std::make_unique<Impl>())
-{
-}
-
-PinocchioDynamicsWrapper::~PinocchioDynamicsWrapper() = default;
-
-bool PinocchioDynamicsWrapper::IsInitialized() const
-{
-  return pimpl_ && pimpl_->initialized;
-}
-
-double PinocchioDynamicsWrapper::TotalMass() const
-{
-  return pimpl_ ? pimpl_->totalMass : 0.0;
-}
-
-bool PinocchioDynamicsWrapper::Initialize(
+template <std::size_t NumJoints>
+PinocchioDynamicsWrapper<NumJoints>::PinocchioDynamicsWrapper(
     const std::string &sdfPath,
     const std::string &rootLinkName,
-    const std::vector<std::string> &actuatedJointNames)
+    const std::array<std::string_view, NumJoints> &actuatedJointNames)
+  : pimpl_(std::make_unique<Impl>())
 {
-  pimpl_->actuatedJointNames = actuatedJointNames;
-  pimpl_->pinocchioJointIds.clear();
-  pimpl_->pinocchioQIndices.clear();
-  pimpl_->pinocchioVIndices.clear();
+  for (std::size_t i = 0; i < NumJoints; ++i)
+  {
+    pimpl_->actuatedJointNames[i] = std::string(actuatedJointNames[i]);
+  }
 
   try
   {
@@ -73,8 +60,7 @@ bool PinocchioDynamicsWrapper::Initialize(
   catch (const std::exception &e)
   {
     std::cerr << "[PinocchioDynamicsWrapper] Failed to load SDF model: " << e.what() << std::endl;
-    pimpl_->initialized = false;
-    return false;
+    throw std::runtime_error(std::string("[PinocchioDynamicsWrapper] Failed to load SDF model: ") + e.what());
   }
 
   // Calculate total mass
@@ -112,8 +98,9 @@ bool PinocchioDynamicsWrapper::Initialize(
   std::cout << std::endl;
 
   // Map actuated joint names to Pinocchio joints
-  for (const auto &jointName : pimpl_->actuatedJointNames)
+  for (std::size_t i = 0; i < NumJoints; ++i)
   {
+    const auto &jointName = pimpl_->actuatedJointNames[i];
     std::string pinName = jointName;
     if (!pimpl_->model.existJointName(pinName) && pimpl_->model.existJointName("joint_" + pinName))
     {
@@ -123,16 +110,16 @@ bool PinocchioDynamicsWrapper::Initialize(
     if (pimpl_->model.existJointName(pinName))
     {
       pinocchio::JointIndex jid = pimpl_->model.getJointId(pinName);
-      pimpl_->pinocchioJointIds.push_back(static_cast<int>(jid));
-      pimpl_->pinocchioQIndices.push_back(static_cast<int>(pimpl_->model.idx_qs[jid]));
-      pimpl_->pinocchioVIndices.push_back(static_cast<int>(pimpl_->model.idx_vs[jid]));
+      pimpl_->pinocchioJointIds[i] = static_cast<int>(jid);
+      pimpl_->pinocchioQIndices[i] = static_cast<int>(pimpl_->model.idx_qs[jid]);
+      pimpl_->pinocchioVIndices[i] = static_cast<int>(pimpl_->model.idx_vs[jid]);
     }
     else
     {
       std::cerr << "[PinocchioDynamicsWrapper] Joint '" << jointName 
             << "' (or 'joint_" << jointName << "') not found in Pinocchio model!" << std::endl;
-      pimpl_->initialized = false;
-      return false;
+      throw std::runtime_error("[PinocchioDynamicsWrapper] Joint '" + jointName +
+                               "' (or 'joint_" + jointName + "') not found in Pinocchio model!");
     }
   }
 
@@ -142,28 +129,37 @@ bool PinocchioDynamicsWrapper::Initialize(
         << ", n_joints: " << pimpl_->model.njoints << ", total mass: " << pimpl_->totalMass << " kg" << std::endl;
   std::cout << "  - Left foot frame ID: " << pimpl_->leftFootFrameId 
         << ", Right foot frame ID: " << pimpl_->rightFootFrameId << std::endl;
-
-  return true;
 }
 
-Eigen::VectorXd PinocchioDynamicsWrapper::ComputeNullspaceGravityTorques(
+template <std::size_t NumJoints>
+PinocchioDynamicsWrapper<NumJoints>::~PinocchioDynamicsWrapper() = default;
+
+template <std::size_t NumJoints>
+bool PinocchioDynamicsWrapper<NumJoints>::IsInitialized() const
+{
+  return pimpl_ && pimpl_->initialized;
+}
+
+template <std::size_t NumJoints>
+double PinocchioDynamicsWrapper<NumJoints>::TotalMass() const
+{
+  return pimpl_ ? pimpl_->totalMass : 0.0;
+}
+
+template <std::size_t NumJoints>
+typename PinocchioDynamicsWrapper<NumJoints>::VectorJoints
+PinocchioDynamicsWrapper<NumJoints>::ComputeNullspaceGravityTorques(
     const Eigen::Vector3d &basePos,
     const Eigen::Quaterniond &baseRot,
-    const Eigen::VectorXd &actuatedQ,
-    ContactSupportMode supportMode)
+    const VectorJoints &actuatedQ,
+    SupportState supportMode)
 {
   if (!pimpl_ || !pimpl_->initialized)
   {
-    return Eigen::VectorXd::Zero(pimpl_ ? pimpl_->actuatedJointNames.size() : 0);
+    return VectorJoints::Zero();
   }
 
-  const int nActuated = static_cast<int>(pimpl_->actuatedJointNames.size());
-  if (actuatedQ.size() != nActuated)
-  {
-    std::cerr << "[PinocchioDynamicsWrapper] actuatedQ size mismatch (expected "
-              << nActuated << ", got " << actuatedQ.size() << ")" << std::endl;
-    return Eigen::VectorXd::Zero(nActuated);
-  }
+  constexpr int nActuated = static_cast<int>(NumJoints);
 
   // 1. Build generalized coordinate vector q (nq)
   Eigen::VectorXd q = Eigen::VectorXd::Zero(pimpl_->model.nq);
@@ -198,7 +194,7 @@ Eigen::VectorXd PinocchioDynamicsWrapper::ComputeNullspaceGravityTorques(
   Eigen::VectorXd g_u = g.head<6>();
 
   // Full generalized actuated gravity: g_a in R^(nActuated)
-  Eigen::VectorXd g_a = Eigen::VectorXd::Zero(nActuated);
+  VectorJoints g_a = VectorJoints::Zero();
   for (int i = 0; i < nActuated; ++i)
   {
     int v_idx = pimpl_->pinocchioVIndices[i];
@@ -285,15 +281,15 @@ Eigen::VectorXd PinocchioDynamicsWrapper::ComputeNullspaceGravityTorques(
   double w_L = 0.5;
   double w_R = 0.5;
 
-  if (supportMode == ContactSupportMode::LEFT_SUPPORT)
+  if (supportMode == SupportState::LEFT_SUPPORT)
   {
     w_L = 1.0;
     w_R = 0.0;
   }
-  else if (supportMode == ContactSupportMode::RIGHT_SUPPORT)
+  else if (supportMode == SupportState::RIGHT_SUPPORT)
   {
-    w_L = 0.0;
     w_R = 1.0;
+    w_L = 0.0;
   }
   else
   {
@@ -308,7 +304,7 @@ Eigen::VectorXd PinocchioDynamicsWrapper::ComputeNullspaceGravityTorques(
   // - Stance Hip Roll (w > 0.5) supports cantilever overhang: tau_hip_r = +/- totalWeight * 0.031 * ((w-0.5)/0.5)
   // - Ankle joints: body weight is supported by ground plane; feedforward torque is foot link weight g_a(ankle).
   // - Swing leg (w < 0.5): unconstrained open chain uses Pinocchio multi-body gravity g_a.
-  Eigen::VectorXd tau_g = g_a;
+  VectorJoints tau_g = g_a;
 
   for (int i = 0; i < nActuated; ++i)
   {
@@ -356,24 +352,19 @@ Eigen::VectorXd PinocchioDynamicsWrapper::ComputeNullspaceGravityTorques(
   return tau_g;
 }
 
-Eigen::MatrixXd PinocchioDynamicsWrapper::ComputeActuatedMassMatrix(
+template <std::size_t NumJoints>
+typename PinocchioDynamicsWrapper<NumJoints>::MatrixJoints
+PinocchioDynamicsWrapper<NumJoints>::ComputeActuatedMassMatrix(
     const Eigen::Vector3d &basePos,
     const Eigen::Quaterniond &baseRot,
-    const Eigen::VectorXd &actuatedQ)
+    const VectorJoints &actuatedQ)
 {
   if (!pimpl_ || !pimpl_->initialized)
   {
-    return Eigen::MatrixXd::Identity(pimpl_ ? pimpl_->actuatedJointNames.size() : 0,
-                                     pimpl_ ? pimpl_->actuatedJointNames.size() : 0);
+    return MatrixJoints::Identity();
   }
 
-  const int nActuated = static_cast<int>(pimpl_->actuatedJointNames.size());
-  if (actuatedQ.size() != nActuated)
-  {
-    std::cerr << "[PinocchioDynamicsWrapper] actuatedQ size mismatch for mass matrix (expected "
-              << nActuated << ", got " << actuatedQ.size() << ")" << std::endl;
-    return Eigen::MatrixXd::Identity(nActuated, nActuated);
-  }
+  constexpr int nActuated = static_cast<int>(NumJoints);
 
   // 1. Build generalized coordinate vector q (nq)
   Eigen::VectorXd q = Eigen::VectorXd::Zero(pimpl_->model.nq);
@@ -396,11 +387,11 @@ Eigen::MatrixXd PinocchioDynamicsWrapper::ComputeActuatedMassMatrix(
   pinocchio::crba(pimpl_->model, pimpl_->data, q);
 
   // 3. Symmetrize upper triangular part into full matrix
-  pimpl_->data.M.triangularView<Eigen::StrictlyLower>() =
-      pimpl_->data.M.transpose().triangularView<Eigen::StrictlyLower>();
+  pimpl_->data.M.template triangularView<Eigen::StrictlyLower>() =
+      pimpl_->data.M.transpose().template triangularView<Eigen::StrictlyLower>();
 
   // 4. Extract actuated submatrix M_a in R^(nActuated x nActuated)
-  Eigen::MatrixXd M_a = Eigen::MatrixXd::Zero(nActuated, nActuated);
+  MatrixJoints M_a = MatrixJoints::Zero();
   for (int i = 0; i < nActuated; ++i)
   {
     int vi = pimpl_->pinocchioVIndices[i];
@@ -417,5 +408,7 @@ Eigen::MatrixXd PinocchioDynamicsWrapper::ComputeActuatedMassMatrix(
 
   return M_a;
 }
+
+template class PinocchioDynamicsWrapper<12>;
 
 } // namespace gz_humanoid_walking

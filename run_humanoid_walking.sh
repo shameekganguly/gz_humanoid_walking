@@ -4,9 +4,9 @@ set -e
 # Detect workspace and package root directories
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -f "${SCRIPT_DIR}/../../install/setup.sh" ] || [ -f "${SCRIPT_DIR}/../../GEMINI.md" ]; then
+if [ -f "${SCRIPT_DIR}/../../install/setup.sh" ]; then
   WS_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
-elif [ -f "${PWD}/install/setup.sh" ] || [ -f "${PWD}/GEMINI.md" ]; then
+elif [ -f "${PWD}/install/setup.sh" ]; then
   WS_ROOT="${PWD}"
 else
   WS_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"

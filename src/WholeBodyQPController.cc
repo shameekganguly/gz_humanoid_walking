@@ -1,34 +1,32 @@
 #include "WholeBodyQPController.hh"
+#include <eiquadprog/eiquadprog.hpp>
 #include <iostream>
 #include <algorithm>
 
 namespace gz_humanoid_walking
 {
 
-WholeBodyQPController::WholeBodyQPController()
+template <std::size_t NumJoints>
+WholeBodyQPController<NumJoints>::WholeBodyQPController(
+    const std::array<std::string_view, NumJoints> &_jointNames,
+    int _verbosity)
+    : jointNames_(_jointNames),
+      verbosity_(_verbosity)
 {
-}
-
-void WholeBodyQPController::Initialize(const std::vector<std::string> &_jointNames)
-{
-  jointNames_ = _jointNames;
-  numJoints_ = static_cast<int>(jointNames_.size());
-
-  jointIndexMap_.clear();
-  for (int i = 0; i < numJoints_; ++i)
+  for (std::size_t i = 0; i < NumJoints; ++i)
   {
-    jointIndexMap_[jointNames_[i]] = i;
+    jointIndexMap_[jointNames_[i]] = static_cast<int>(i);
   }
 
-  qNominal_ = Eigen::VectorXd::Zero(numJoints_);
-  qMin_ = Eigen::VectorXd::Constant(numJoints_, -2.5);
-  qMax_ = Eigen::VectorXd::Constant(numJoints_, 2.5);
-  qdMax_ = Eigen::VectorXd::Constant(numJoints_, 6.0); // 6 rad/s max velocity
+  qNominal_.setZero();
+  qMin_.setConstant(-2.5);
+  qMax_.setConstant(2.5);
+  qdMax_.setConstant(6.0); // 6 rad/s max velocity
 
   // Set specific leg joint limits
-  for (int i = 0; i < numJoints_; ++i)
+  for (std::size_t i = 0; i < NumJoints; ++i)
   {
-    const std::string &name = jointNames_[i];
+    const auto &name = jointNames_[i];
     if (name == "joint_R_KNEE" || name == "joint_L_KNEE")
     {
       qMin_(i) = 0.0;
@@ -37,7 +35,8 @@ void WholeBodyQPController::Initialize(const std::vector<std::string> &_jointNam
   }
 }
 
-bool WholeBodyQPController::Solve(
+template <std::size_t NumJoints>
+bool WholeBodyQPController<NumJoints>::Solve(
     const Eigen::Vector3d &_comDes,
     const Eigen::Vector3d &/*_comVelDes*/,
     const Eigen::Vector3d &_leftFootDes,
@@ -47,10 +46,11 @@ bool WholeBodyQPController::Solve(
     SupportState _support,
     const Eigen::VectorXd &_currentQ,
     double _dt,
-    Eigen::VectorXd &_targetQ,
-    Eigen::VectorXd &_targetQd)
+    Eigen::Matrix<double, NumJoints, 1> &_targetQ,
+    Eigen::Matrix<double, NumJoints, 1> &_targetQd)
 {
-  if (numJoints_ == 0 || _currentQ.size() != numJoints_)
+  constexpr int numJoints = static_cast<int>(NumJoints);
+  if (numJoints == 0 || _currentQ.size() != numJoints)
   {
     return false;
   }
@@ -79,10 +79,10 @@ bool WholeBodyQPController::Solve(
   legIK_.SolveIK(LegSide::LEFT, leftFootInHip, R_left_rel, leftLegJoints);
   legIK_.SolveIK(LegSide::RIGHT, rightFootInHip, R_right_rel, rightLegJoints);
 
-  Eigen::VectorXd qRef = qNominal_;
+  Eigen::Matrix<double, NumJoints, 1> qRef = qNominal_;
 
   // Map leg joint references
-  auto setRef = [&](const std::string &name, double val) {
+  auto setRef = [&](std::string_view name, double val) {
     auto it = jointIndexMap_.find(name);
     if (it != jointIndexMap_.end())
     {
@@ -106,21 +106,21 @@ bool WholeBodyQPController::Solve(
 
   // 2. Set up Whole-Body QP: min 0.5 * qd^T * G * qd + g0^T * qd
   double Kp = 20.0;
-  Eigen::VectorXd qdDes = Kp * (qRef - _currentQ);
+  Eigen::Matrix<double, NumJoints, 1> qdDes = Kp * (qRef - _currentQ);
 
   // Weight matrix
-  Eigen::VectorXd weights = Eigen::VectorXd::Constant(numJoints_, 100.0);
+  Eigen::Matrix<double, NumJoints, 1> weights = Eigen::Matrix<double, NumJoints, 1>::Constant(100.0);
   Eigen::MatrixXd G = weights.asDiagonal();
   G.diagonal().array() += 0.1; // Regularization
 
   Eigen::VectorXd g0 = -G * qdDes;
 
   // 3. Inequality Constraints: CI^T * qd + ci0 >= 0
-  int numConstraints = 2 * numJoints_;
-  Eigen::MatrixXd CI(numJoints_, numConstraints);
+  int numConstraints = 2 * numJoints;
+  Eigen::MatrixXd CI(numJoints, numConstraints);
   Eigen::VectorXd ci0(numConstraints);
 
-  for (int i = 0; i < numJoints_; ++i)
+  for (int i = 0; i < numJoints; ++i)
   {
     double lowerBound = std::max(-qdMax_(i), (qMin_(i) - _currentQ(i)) / _dt);
     double upperBound = std::min( qdMax_(i), (qMax_(i) - _currentQ(i)) / _dt);
@@ -130,31 +130,31 @@ bool WholeBodyQPController::Solve(
     }
 
     // qd(i) >= lowerBound  <=>  +1 * qd(i) - lowerBound >= 0
-    CI.col(i) = Eigen::VectorXd::Unit(numJoints_, i);
+    CI.col(i) = Eigen::VectorXd::Unit(numJoints, i);
     ci0(i) = -lowerBound;
 
     // qd(i) <= upperBound  <=>  -1 * qd(i) + upperBound >= 0
-    CI.col(numJoints_ + i) = -Eigen::VectorXd::Unit(numJoints_, i);
-    ci0(numJoints_ + i) = upperBound;
+    CI.col(numJoints + i) = -Eigen::VectorXd::Unit(numJoints, i);
+    ci0(numJoints + i) = upperBound;
   }
 
   // 4. Solve via eiquadprog
-  Eigen::MatrixXd CE(numJoints_, 0);
+  Eigen::MatrixXd CE(numJoints, 0);
   Eigen::VectorXd ce0(0);
 
-  _targetQd.resize(numJoints_);
+  Eigen::VectorXd qdSol = Eigen::VectorXd::Zero(numJoints);
   Eigen::VectorXi activeSet;
   size_t activeSetSize = 0;
 
   double cost = eiquadprog::solvers::solve_quadprog(
-      G, g0, CE, ce0, CI, ci0, _targetQd, activeSet, activeSetSize);
+      G, g0, CE, ce0, CI, ci0, qdSol, activeSet, activeSetSize);
 
   bool qpSuccess = !std::isinf(cost) && !std::isnan(cost);
   if (!qpSuccess)
   {
     qpFailedSolvesInWindow_++;
     // Fallback if infeasible
-    for (int i = 0; i < numJoints_; ++i)
+    for (int i = 0; i < numJoints; ++i)
     {
       double lb = std::max(-qdMax_(i), (qMin_(i) - _currentQ(i)) / _dt);
       double ub = std::min( qdMax_(i), (qMax_(i) - _currentQ(i)) / _dt);
@@ -169,6 +169,7 @@ bool WholeBodyQPController::Solve(
   {
     qpConvergedSolvesInWindow_++;
     qpAccumulatedCostInWindow_ += cost;
+    _targetQd = qdSol;
   }
 
   qpTotalSolvesInWindow_++;
@@ -199,12 +200,14 @@ bool WholeBodyQPController::Solve(
 
   // 5. Target positions from kinematic reference
   _targetQ = qRef;
-  for (int i = 0; i < numJoints_; ++i)
+  for (int i = 0; i < numJoints; ++i)
   {
     _targetQ(i) = std::clamp(_targetQ(i), qMin_(i), qMax_(i));
   }
 
   return true;
 }
+
+template class WholeBodyQPController<12>;
 
 } // namespace gz_humanoid_walking

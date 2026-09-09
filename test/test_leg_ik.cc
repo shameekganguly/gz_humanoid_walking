@@ -1,49 +1,50 @@
+#include <gtest/gtest.h>
 #include "LegIK.hh"
+
 #include <cmath>
-#include <iostream>
 #include <vector>
 
 using namespace gz_humanoid_walking;
 
-int main()
+/// \brief Test fixture for LegIK unit tests
+class LegIKTest : public ::testing::Test
 {
-  std::cout << "Running LegIK tests..." << std::endl;
-  LegIK ik;
+protected:
+  LegIK ik_;
+};
 
-  // 1. Check lengths
-  if (std::abs(ik.ThighLength() - 0.3895) > 0.01 ||
-      std::abs(ik.ShinLength() - 0.3592) > 0.01)
+/// \brief Test kinematic dimension consistency
+TEST_F(LegIKTest, KinematicDimensions)
+{
+  EXPECT_NEAR(ik_.ThighLength(), 0.3895, 0.01);
+  EXPECT_NEAR(ik_.ShinLength(), 0.3592, 0.01);
+  EXPECT_NEAR(ik_.AnkleOffsetZ(), -0.07, 0.01);
+}
+
+/// \brief Test standing pose IK/FK round-trip consistency for both left and right legs
+TEST_F(LegIKTest, StandingPoseConsistency)
+{
+  const Eigen::Vector3d footPos(0.0, 0.0, -0.74);
+  const Eigen::Matrix3d footRot = Eigen::Matrix3d::Identity();
+
+  for (auto side : {LegSide::LEFT, LegSide::RIGHT})
   {
-    std::cerr << "FAIL: Thigh/Shin lengths mismatch" << std::endl;
-    return 1;
+    LegJointAngles joints;
+    ASSERT_TRUE(ik_.SolveIK(side, footPos, footRot, joints));
+
+    Eigen::Vector3d fkFootPos;
+    Eigen::Matrix3d fkFootRot;
+    ik_.ForwardKinematics(side, joints, fkFootPos, fkFootRot);
+
+    EXPECT_LT((fkFootPos - footPos).norm(), 1e-4);
+    EXPECT_LT((fkFootRot - footRot).norm(), 1e-4);
   }
-  std::cout << "  [PASS] Thigh/Shin kinematic lengths verified." << std::endl;
+}
 
-  // 2. Standing Pose IK/FK Consistency
-  Eigen::Vector3d footPos(0.0, 0.0, -0.74);
-  Eigen::Matrix3d footRot = Eigen::Matrix3d::Identity();
-
-  LegJointAngles joints;
-  if (!ik.SolveIK(LegSide::LEFT, footPos, footRot, joints))
-  {
-    std::cerr << "FAIL: SolveIK failed for standing pose" << std::endl;
-    return 1;
-  }
-
-  Eigen::Vector3d fkFootPos;
-  Eigen::Matrix3d fkFootRot;
-  ik.ForwardKinematics(LegSide::LEFT, joints, fkFootPos, fkFootRot);
-
-  if ((fkFootPos - footPos).norm() > 1e-4)
-  {
-    std::cerr << "FAIL: ForwardKinematics output mismatch: "
-              << fkFootPos.transpose() << " vs " << footPos.transpose() << std::endl;
-    return 1;
-  }
-  std::cout << "  [PASS] Standing pose IK/FK consistency verified (error < 1e-4 m)." << std::endl;
-
-  // 3. Walking Workspace Reachability & Round-trip Precision
-  std::vector<Eigen::Vector3d> testPoses = {
+/// \brief Test walking workspace reachability and precision across representative poses
+TEST_F(LegIKTest, WalkingWorkspaceReachability)
+{
+  const std::vector<Eigen::Vector3d> testPoses = {
       {0.10, 0.0, -0.72},
       {-0.10, 0.0, -0.72},
       {0.05, 0.01, -0.68},
@@ -51,27 +52,34 @@ int main()
       {0.08, -0.01, -0.69}
   };
 
-  for (const auto &p : testPoses)
+  for (auto side : {LegSide::LEFT, LegSide::RIGHT})
   {
-    LegJointAngles j;
-    if (!ik.SolveIK(LegSide::RIGHT, p, Eigen::Matrix3d::Identity(), j))
+    for (const auto &p : testPoses)
     {
-      std::cerr << "FAIL: Failed to solve IK for pose: " << p.transpose() << std::endl;
-      return 1;
-    }
+      LegJointAngles joints;
+      ASSERT_TRUE(ik_.SolveIK(side, p, Eigen::Matrix3d::Identity(), joints))
+          << "Failed to solve IK for side=" << (side == LegSide::LEFT ? "LEFT" : "RIGHT")
+          << " pose: " << p.transpose();
 
-    Eigen::Vector3d fkP;
-    Eigen::Matrix3d fkR;
-    ik.ForwardKinematics(LegSide::RIGHT, j, fkP, fkR);
-    if ((fkP - p).norm() > 2e-3)
-    {
-      std::cerr << "FAIL: FK mismatch for pose: " << p.transpose()
-                << " (Got: " << fkP.transpose() << ")" << std::endl;
-      return 1;
+      Eigen::Vector3d fkP;
+      Eigen::Matrix3d fkR;
+      ik_.ForwardKinematics(side, joints, fkP, fkR);
+
+      EXPECT_LT((fkP - p).norm(), 2e-3)
+          << "FK mismatch for side=" << (side == LegSide::LEFT ? "LEFT" : "RIGHT")
+          << " pose: " << p.transpose() << " (Got: " << fkP.transpose() << ")";
     }
   }
-  std::cout << "  [PASS] Walking workspace poses verified across 5 trajectory points." << std::endl;
-
-  std::cout << "All LegIK tests PASSED successfully." << std::endl;
-  return 0;
 }
+
+/// \brief Test graceful handling and rejection of unreachable target poses
+TEST_F(LegIKTest, UnreachableTargetRejection)
+{
+  // Target position well beyond maximum leg extension (> 0.3895 + 0.3592 + 0.07 = 0.8187 m)
+  const Eigen::Vector3d unreachablePos(0.0, 0.0, -1.20);
+  LegJointAngles joints;
+
+  EXPECT_FALSE(ik_.SolveIK(LegSide::LEFT, unreachablePos, Eigen::Matrix3d::Identity(), joints));
+  EXPECT_FALSE(ik_.SolveIK(LegSide::RIGHT, unreachablePos, Eigen::Matrix3d::Identity(), joints));
+}
+

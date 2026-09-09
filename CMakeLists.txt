@@ -94,10 +94,16 @@ install(DIRECTORY models worlds scripts
 
 # Unit Tests
 if(BUILD_TESTING)
+  if(NOT TARGET gtest)
+    add_subdirectory(test/gtest_vendor)
+  endif()
+
   add_executable(test_leg_ik test/test_leg_ik.cc)
   target_link_libraries(test_leg_ik
     ${PROJECT_NAME}_core
     pinocchio::pinocchio
+    gtest
+    gtest_main
   )
   add_test(NAME test_leg_ik COMMAND test_leg_ik)
 
@@ -105,6 +111,8 @@ if(BUILD_TESTING)
   target_link_libraries(test_lipm_generator
     ${PROJECT_NAME}_core
     pinocchio::pinocchio
+    gtest
+    gtest_main
   )
   add_test(NAME test_lipm_generator COMMAND test_lipm_generator)
 
@@ -112,6 +120,8 @@ if(BUILD_TESTING)
   target_link_libraries(test_pinocchio_dynamics
     ${PROJECT_NAME}_core
     pinocchio::pinocchio
+    gtest
+    gtest_main
   )
   add_test(NAME test_pinocchio_dynamics COMMAND test_pinocchio_dynamics)
 endif()
