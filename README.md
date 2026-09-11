@@ -90,7 +90,7 @@ Use the `run_humanoid_walking.sh` script to automatically configure environment 
 
 ## Repository Structure
 
-- `src/`: Controller, IK, dynamics wrapper, and Gazebo System plugin implementation.
+- `src/`: Controller, IK, dynamics wrapper, and Gazebo System plugin implementation (see [`src/README.md`](src/README.md) for detailed architecture and control formulation).
 - `vendored/`: Git submodules for `eiquadprog` and `pinocchio`.
 - `models/`: Modular SDFormat robot and sensor models (`jvrc1`, `camera`, `torso_lidar`, `checkered_floor`).
 - `worlds/`: SDFormat 1.12 simulation world definitions.
@@ -102,6 +102,10 @@ Use the `run_humanoid_walking.sh` script to automatically configure environment 
 ## AI use
 
 Most of this demo was created using Gemini 3.7 Flash in the Google Antigravity IDE.
+
+## Acknowledgements
+
+We gratefully acknowledge the authors and maintainers of [isri-aist/jvrc_mj_description](https://github.com/isri-aist/jvrc_mj_description) (at ISRI-AIST, Japan), from which the JVRC-1 humanoid model was adapted.
 
 ## Licensing
 
